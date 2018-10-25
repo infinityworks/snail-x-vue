@@ -3,11 +3,11 @@
         <h3 class="page-title">Login</h3>
         <hr>
         <form action="#" @submit.prevent="login">
-            <input class="form-control" type="text" name="email"
+            <input id="email-field" class="form-control" type="text" name="email"
                    v-model="email" placeholder="Email"/>
-            <input class="form-control" type="password" name="password"
+            <input id="password-field" class="form-control" type="password" name="password"
                    v-model="password" placeholder="Password"/>
-            <button style="float: right" class="btn btn-primary" type="button" @click="login()">Login</button>
+            <button style="float: right" id="login-button" class="btn btn-primary" type="button" @click="login()">Login</button>
             <button style="margin-right: 1em; float: right" type="button" class="btn btn-warning"
                     onclick="window.history.back()">Back
             </button>
