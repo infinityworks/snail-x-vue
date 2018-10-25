@@ -2,10 +2,10 @@
         <div id="home" class="home-body">
         <!--<h1 v-if="!loggedIn" style="color: whitesmoke">Welcome, please register or login.</h1>-->
         <h1 id="home-message"></h1>
-        <div id="predictions-banner"></div>
+        <div v-if="!futureRound" id="predictions-banner"></div>
         <div id="message-and-image"></div>
-        <div v-if="loggedIn" id="predictions"></div>
-            <div v-if="loggedIn" id="currentRoundResults"></div>
+        <div v-if="loggedIn && !futureRound" id="predictions"></div>
+            <div v-if="loggedIn && !futureRound" id="currentRoundResults"></div>
         </div>
 </template>
 
@@ -16,6 +16,7 @@
         name: 'home',
         data() {
             return {
+                futureRound: 0,
             }
         },
         computed: {
@@ -29,10 +30,12 @@
         methods: {
             async checkFutureRound() {
                 const {data} = await this.getFutureRound()
-                var status = data['status'];
+                const status = data['status'];
                 if (status === 1) {
                     this.buildFutureRoundMessage(data)
+                    this.futureRound = 1;
                 } else if (status === 0) {
+                    this.futureRound = 0;
                     if (this.loggedIn) {
                         this.buildPredictionsMessage()
                     } else {
@@ -70,7 +73,7 @@
                 var response = await this.getPredictions()
                 alert(response.data[0])
                 if (response.data[0] !== "No Open Round") {
-                    if (response.data.message !== "Error. No predictions made") {   // User has made predictions on a currrently open round
+                    if (response.data.message !== "Error. No predictions made") {   // User has made predictions on a currently open round
                         document.getElementById('predictions-banner').innerHTML = "Your predictions for round " + response.data[0][4] + ":";
                         var printed_table = '<table><tr><th>Race No.</th><th>Snail No.</th><th>Snail Name</th><th>Trainer</th> </tr>';
 
@@ -83,14 +86,15 @@
                         printed_table += "<img height=70% width=70% src=https://static.euronews.com/articles/stories/03/22/91/52/880x495_cmsv2_1f2eea27-fa79-5a58-90f2-c298315d4e68-3229152.jpg>"
                     }
                 } else {    // There is no open round (ROUND COULD BE INFLIGHT!!!)
+                    alert("boop")
                     printed_table = "<center><h3 style='background-color:white; padding:5px; margin-right:50%'>No rounds currently open!</h3></center>"
                 }
                 document.getElementById('message-and-image').innerHTML = printed_table;
 
             },
-            
-            getPredictions() {  // Returns a response with 'No Open Round' if a round is not open, and details of an open roundd plus predictions
-                                // if there is an open round
+            // Returns a response with 'No Open Round' if a round is not open
+            // Returns details of an open round plus predictions if there is an open round
+            getPredictions() {
                 return this.$store.dispatch('getPredictions')
                     .then((response) => {
                         return response
@@ -117,9 +121,11 @@
                 printed_table += "<img height=70% width=70% src=https://static.euronews.com/articles/stories/03/22/91/52/880x495_cmsv2_1f2eea27-fa79-5a58-90f2-c298315d4e68-3229152.jpg>"
                 document.getElementById('message-and-image').innerHTML = printed_table;
             },
+
             getActiveRound() { //  Returns data where ['open'] is True if an open round exists and False if not
                 return this.$store.dispatch('getActiveRound')
             },
+
             getInflightRound() {
                 return this.$store.dispatch('getInflightRound')
                     .then((response) => {
