@@ -99,9 +99,9 @@
             
             async setupLoggedOut() {
                 const response = await this.getActiveRound();
-                console.log(response)
-                const round_open = response.data['open']
-                console.log(round_open)
+                console.log(response);
+                const round_open = response.data['open'];
+                console.log(round_open);
                 var printed_table = "";
                 if (round_open) { // If logged out and there is an open round
                     printed_table += "<center><h3 style='background-color:white; margin-right:30%;'>A round is now open to predict on - <a href='/#/login'>Log in</a>/<a href='/#/register'>register</a> to play!</h3></center>"
@@ -168,8 +168,9 @@
             }
         },
         beforeMount() {
-            this.getPredictions()
-            this.getCurrentRoundResults()
+            this.getPredictions();
+            this.getCurrentRoundResults();
+            this.setupLoggedOut();
         }
     }
 </script>

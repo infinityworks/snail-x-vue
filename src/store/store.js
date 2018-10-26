@@ -7,7 +7,7 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
     state: {
         user: localStorage.getItem('user_email') || null,
-        user_first_name: localStorage.getItem('user_first_name') || null,
+        user_first_name: localStorage.getItem('user_first_name') || null
     },
     getters: {
         loggedIn(state) {
@@ -18,6 +18,9 @@ export const store = new Vuex.Store({
         },
         userFirstName(state) {
             return state.user_first_name
+        },
+        userID(state) {
+            return state.user_id
         }
     },
     mutations: {
@@ -40,7 +43,6 @@ export const store = new Vuex.Store({
                         return resolve(response.data["result"]);
                     })
                     .catch(error => {
-                        console.log(error);
                         reject(error);
                     })
             })
@@ -70,6 +72,8 @@ export const store = new Vuex.Store({
                     })
             })
         },
+
+
         registerUser(context, credentials) {
             return new Promise((resolve, reject) => {
                 axios.post('http://127.0.0.1:5000/register-user', {
@@ -86,6 +90,7 @@ export const store = new Vuex.Store({
                     })
             })
         },
+
         logoutUser(context) {
             return new Promise((resolve) => {
                 localStorage.removeItem('user_email');
@@ -94,6 +99,20 @@ export const store = new Vuex.Store({
                 resolve()
             })
         },
+
+        getOpenRound() {
+            return new Promise((resolve) => {
+                axios.get('http://localhost:5000/get-open-round')
+                    .then(response => {
+                        resolve(response);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        reject(error);
+                    })
+            })
+        },
+
         checkFutureRound() {
             return new Promise((resolve, reject) => {
                 axios.get('http://127.0.0.1:5000/check-future-rounds')
@@ -119,6 +138,15 @@ export const store = new Vuex.Store({
                     .then(response => {
                         resolve(response);
                     })
+
+            })
+        },
+        storePredictions(context, predictions) {
+            return new Promise((resolve, reject) => {
+                axios.post('http://localhost:5000/store-predictions', {
+                    userEmail: this.state.user,
+                    racePredictions: predictions.racePredictions
+                })
                     .catch(error => {
                         console.log(error);
                         reject(error);
@@ -133,7 +161,7 @@ export const store = new Vuex.Store({
                         resolve(response)
                     })
                     .catch(error => {
-                        alert("errror!")
+                        console.log(error);
                         reject(error);
                     })
             })
@@ -158,7 +186,7 @@ export const store = new Vuex.Store({
                         resolve(response)
                     })
                     .catch(error => {
-                        alert("errror!")
+                        alert("errror!");
                         console.log(error);
                         reject(error);
                     })
