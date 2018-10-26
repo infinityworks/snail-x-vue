@@ -6,36 +6,17 @@
             <h3 class="page-title">Register</h3>
             <hr>
             <div class="form-group">
-                <!--<input type="text" class="form-control" name="firstName" v-model="firstName"-->
-                       <!--placeholder="First Name" maxlength="100" v-bind:class="{ 'is-invalid': attemptSubmit && missingFirstName }"/>-->
-                <!--<div class="invalid-feedback">First name is required.</div>-->
-
-                <!--<input type="text" class="form-control" name="lastName" v-model="lastName"-->
-                       <!--placeholder="Last Name" maxlength="100" v-bind:class="{ 'is-invalid': attemptSubmit && missingLastName }"/>-->
-                <!--<div class="invalid-feedback">Last name is required.</div>-->
-
-                <!--<input type="email" class="form-control" name="email" v-model="email"-->
-                       <!--placeholder="Email" maxlength="100" v-bind:class="{ 'is-invalid': attemptSubmit && invalidEmail }"/>-->
-                <!--<div class="invalid-feedback">Email is required, and must be a valid email format.</div>-->
-
-                <!--<div v-bind:class="{ 'is-invalid': attemptSubmit && duplicateEmail }"></div>-->
-                <!--<div class="invalid-feedback">Email already exists in database.</div>-->
-
-                <!--<input type="password" class="form-control" name="password" v-model="password"-->
-                       <!--placeholder="Password" maxlength="100" v-bind:class="{ 'is-invalid': attemptSubmit && invalidPassword }"/>-->
-                <!--<div class="invalid-feedback">Password must be at least 8 characters long, contain one number and one special character.</div>-->
-
                 <input type="text" class="form-control" name="firstName" v-model="firstName"
                        placeholder="First Name" maxlength="100"/>
                 <p id="fName" class="validation-alert"></p>
 
                 <input type="text" class="form-control" name="lastName" v-model="lastName"
                        placeholder="Last Name" maxlength="100"/>
-                 <p id="lName" class="validation-alert"></p>
+                <p id="lName" class="validation-alert"></p>
 
                 <input type="text" class="form-control" name="email" v-model="email"
                        placeholder="Email" maxlength="100"/>
-                 <p id="email" class="validation-alert"></p>
+                <p id="email" class="validation-alert"></p>
 
                 <input type="password" class="form-control" name="password" v-model="password"
                        placeholder="Password" maxlength="100"/>
@@ -44,7 +25,9 @@
                 <input type="submit" style="float: right;" class="btn btn-primary" value="Register"/>
 
                 <button style="margin-right: 1em; float: right" type="button" class="btn btn-warning"
-                        onclick="window.history.back()">Back</button>
+                        id="register-button"
+                        onclick="window.history.back()">Back
+                </button>
             </div>
         </form>
     </div>
@@ -63,11 +46,21 @@
             }
         },
         computed: {
-            missingFirstName: function () { return this.firstName === ''; },
-            missingLastName: function () { return this.lastName === ''; },
-            invalidEmail: function () { return this.isEmail(this.email) === false; },
-            duplicateEmail: function () { return this.email_in_db(this.email); },
-            invalidPassword: function() { return this.isPassword(this.password) === false; }
+            missingFirstName: function () {
+                return this.firstName === '';
+            },
+            missingLastName: function () {
+                return this.lastName === '';
+            },
+            invalidEmail: function () {
+                return this.isEmail(this.email) === false;
+            },
+            duplicateEmail: function () {
+                return this.email_in_db(this.email);
+            },
+            invalidPassword: function () {
+                return this.isPassword(this.password) === false;
+            }
         },
         methods: {
             isEmail: function (input) {
@@ -79,7 +72,7 @@
                 return re.test(input);
             },
 
-            validateFirstName: function() {
+            validateFirstName: function () {
                 if (this.missingFirstName) {
                     document.getElementById("fName").innerHTML = "First name is required.";
                     this.allValid = false;
@@ -89,7 +82,7 @@
                 }
             },
 
-            validateLastName: function() {
+            validateLastName: function () {
                 if (this.missingLastName) {
                     document.getElementById("lName").innerHTML = "Last name is required.";
                     this.allValid = false;
@@ -99,7 +92,7 @@
                 }
             },
 
-            validatePassword: function() {
+            validatePassword: function () {
                 if (this.invalidPassword) {
                     document.getElementById("psswd").innerHTML = "Password must be at least 8 characters long, and contain one number and one special character.";
                     this.allValid = false;
@@ -109,7 +102,7 @@
                 }
             },
 
-            validateEmail: function() {
+            validateEmail: function () {
                 if (this.invalidEmail) {
                     document.getElementById("email").innerHTML = "Email is required, and must be of a valid email format.";
                     this.allValid = false;
@@ -119,7 +112,7 @@
                         if (inDb) {
                             document.getElementById("email").innerHTML = "User account with this email already exists.";
                             this.allValid = false;
-                       } else {
+                        } else {
                             document.getElementById("email").innerHTML = "";
                         }
                     }).then(() => {
@@ -149,13 +142,7 @@
                     email: this.email.toLowerCase(),
                 })
                     .then((response) => {
-                        var result = Boolean(response);
-                        if (result) {
-                            return true
-                        }
-                        else {
-                            return false
-                        }
+                        return Boolean(response);
                     })
             },
             register() {

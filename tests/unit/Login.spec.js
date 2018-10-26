@@ -27,7 +27,6 @@ describe('Login.vue', () => {
 
     describe('invalid form', () => {
         it('does not submit when no email or password entered', () => {
-            console.log(wrapper.html());
             const login = wrapper.find('#login-button');
             login.trigger('click');
 
