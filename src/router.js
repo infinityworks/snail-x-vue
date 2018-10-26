@@ -4,6 +4,7 @@ import RegisterComponent from "./components/auth/Register.vue"
 import HomeComponent from "./components/Home.vue"
 import LoginComponent from "./components/auth/Login.vue"
 import LogoutComponent from "./components/auth/Logout.vue"
+import MakePredictionsComponent from "./components/predictions/MakePredictions.vue"
 
 Vue.use(Router);
 
@@ -34,6 +35,14 @@ export default new Router({
             path: "/logout",
             name: "logout",
             component: LogoutComponent
+        },
+        {
+            path: "/make-predictions",
+            name: "make-predictions",
+            component: MakePredictionsComponent,
+            meta: {
+                requiresAuth: true
+            }
         },
     ]
 })
