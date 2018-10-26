@@ -1,4 +1,6 @@
-# snail-vue
+**BUILD STATUS** [![CircleCI](https://circleci.com/gh/infinityworks/snail-x-core-vue.svg?style=svg)](https://circleci.com/gh/infinityworks/snail-x-core-vue)
+
+# webapp
 
 ## Project setup
 ```
@@ -23,9 +25,4 @@ npm run test
 ### Lints and fixes files
 ```
 npm run lint
-```
-
-### Run your unit tests
-```
-npm run test:unit
 ```

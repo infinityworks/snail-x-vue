@@ -20,10 +20,21 @@ router.beforeEach((to, from, next) => {
         } else {
             next()
         }
+    }
+    else if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (store.getters.loggedIn) {
+            next()
+        } else {
+            next({
+                name: 'home',
+            })
+        }
     } else {
         next()
     }
 });
+
+
 
 new Vue({
     router,
