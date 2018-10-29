@@ -30,7 +30,7 @@ describe('Login.vue', () => {
             const login = wrapper.find('#login-button');
             login.trigger('click');
 
-            expect(global.alert).toHaveBeenCalled('Please enter a email and password of valid length (0 to 100 chars)');
+            expect(global.alert).toHaveBeenCalledWith('Please enter a email and password of valid length (0 to 100 chars)');
         });
 
         it('does not submit when email too long', () => {

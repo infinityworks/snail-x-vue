@@ -6,21 +6,21 @@
             <h3 class="page-title">Register</h3>
             <hr>
             <div class="form-group">
-                <input type="text" class="form-control" name="firstName" v-model="firstName"
+                <input type="text" class="form-control" name="firstName" v-model="firstName" id="first-name-input"
                        placeholder="First Name" maxlength="100"/>
-                <p id="fName" class="validation-alert"></p>
+                <p id="first-name-label" class="validation-alert"></p>
 
-                <input type="text" class="form-control" name="lastName" v-model="lastName"
+                <input type="text" class="form-control" name="lastName" v-model="lastName" id="last-name-input"
                        placeholder="Last Name" maxlength="100"/>
-                <p id="lName" class="validation-alert"></p>
+                <p id="last-name-label" class="validation-alert"></p>
 
-                <input type="text" class="form-control" name="email" v-model="email"
+                <input type="text" class="form-control" name="email" v-model="email" id="email-input"
                        placeholder="Email" maxlength="100"/>
-                <p id="email" class="validation-alert"></p>
+                <p id="email-label" class="validation-alert"></p>
 
-                <input type="password" class="form-control" name="password" v-model="password"
+                <input type="password" class="form-control" name="password" v-model="password" id="password-input"
                        placeholder="Password" maxlength="100"/>
-                <p id="psswd" class="validation-alert"></p>
+                <p id="password-label" class="validation-alert"></p>
 
                 <input type="submit" class="btn btn-primary" value="Register"/>
 
@@ -60,6 +60,9 @@
             },
             invalidPassword: function () {
                 return this.isPassword(this.password) === false;
+            },
+            getAllValid: function () {
+                return this.allValid
             }
         },
         methods: {
@@ -74,49 +77,49 @@
 
             validateFirstName: function () {
                 if (this.missingFirstName) {
-                    document.getElementById("fName").innerHTML = "First name is required.";
+                    document.getElementById("first-name-label").innerHTML = "First name is required.";
                     this.allValid = false;
                 }
                 else {
-                    document.getElementById("fName").innerHTML = "";
+                    document.getElementById("first-name-label").innerHTML = "";
                 }
             },
 
             validateLastName: function () {
                 if (this.missingLastName) {
-                    document.getElementById("lName").innerHTML = "Last name is required.";
+                    document.getElementById("last-name-label").innerHTML = "Last name is required.";
                     this.allValid = false;
                 }
                 else {
-                    document.getElementById("lName").innerHTML = "";
+                    document.getElementById("last-name-label").innerHTML = "";
                 }
             },
 
             validatePassword: function () {
                 if (this.invalidPassword) {
-                    document.getElementById("psswd").innerHTML = "Password must be at least 8 characters long, and contain one number and one special character.";
+                    document.getElementById("password-label").innerHTML = "Password must be at least 8 characters long, and contain one number and one special character.";
                     this.allValid = false;
                 }
                 else {
-                    document.getElementById("psswd").innerHTML = "";
+                    document.getElementById("password-label").innerHTML = "";
                 }
             },
 
             validateEmail: function () {
                 if (this.invalidEmail) {
-                    document.getElementById("email").innerHTML = "Email is required, and must be of a valid email format.";
+                    document.getElementById("email-label").innerHTML = "Email is required, and must be of a valid email format.";
                     this.allValid = false;
                 }
                 else {
                     this.duplicateEmail.then((inDb) => {
                         if (inDb) {
-                            document.getElementById("email").innerHTML = "User account with this email already exists.";
+                            document.getElementById("email-label").innerHTML = "User account with this email already exists.";
                             this.allValid = false;
                         } else {
-                            document.getElementById("email").innerHTML = "";
+                            document.getElementById("email-label").innerHTML = "";
                         }
                     }).then(() => {
-                        if (!this.allValid) {
+                        if (!this.getAllValid()) {
                             return;
                         }
 

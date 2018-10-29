@@ -1,4 +1,3 @@
-
 <template>
     <div id="make-predictions">
         <h2 class="page-title">Make Predictions Here!</h2>
@@ -29,7 +28,7 @@
                 </div>
 
                 <button type="button" class="btn btn-warning" onclick="window.history.back()">Back</button>
-                <button type="submit" class="btn btn-primary" style="margin-left: 0.5rem">Submit Predictions</button>
+                <button type="submit" class="btn btn-primary" style="margin-left: 0.5rem" id="submit-predictions-button">Submit Predictions</button>
             </form>
     </div>
 </template>
@@ -46,7 +45,6 @@
                 checkedRadios: {},
             }
         },
-
         created() {
             this.get_open_round()
         },
@@ -61,7 +59,9 @@
                         this.round_name = response.data.roundname;
                         this.round_id = response.data.roundid;
                         this.races = response.data.races;
-
+                    })
+                    .catch(reason => {
+                        console.log(reason);
                     })
             },
             handleCheck(e) {
@@ -69,7 +69,7 @@
                 this.checkedRadios[dataset.raceId] = dataset.snailId;
             },
             allTicked() {
-                return Object.keys(this.checkedRadios).length == this.races.length;
+                return Object.keys(this.checkedRadios).length === this.races.length;
             },
             submitForm() {
                 if (!this.allTicked()) {

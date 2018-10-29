@@ -13,7 +13,6 @@ describe('Register.vue', () => {
     let registerUser;
 
     beforeEach(() => {
-        global.alert = jest.fn();
         registerUser = jest.fn();
         actions = {
             registerUser
@@ -22,16 +21,22 @@ describe('Register.vue', () => {
             state: {},
             actions
         });
-        wrapper = mount(Register, { store, localVue });
+        wrapper = mount(Register, {store, localVue});
     });
 
-    describe('invalid form', () => {
-        it('does not submit when no details are entered', () => {
-            const expect_value = false;
-            const login = wrapper.find('#register-button');
-            login.trigger('click');
 
-            expect(Register.data.allValid).toBe(expect_value)
+    describe('invalid form', () => {
+        it('returns false when testing with an invalid email string', () => {
+            const email_input = wrapper.find('#email-input');
+            const register_button = wrapper.find('#register-button');
+
+            let validateEmailMock = jest.fn();
+            wrapper.vm.validateEmail = validateEmailMock;
+
+            email_input.value = "something";
+            register_button.trigger('click');
+
+            expect(validateEmailMock.mock.calls.length).toBe(0)
         });
     });
 });

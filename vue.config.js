@@ -9,4 +9,4 @@ module.exports = {
         public: '192.168.56.132' // vagrant machine address
     }
   }
-}
+};

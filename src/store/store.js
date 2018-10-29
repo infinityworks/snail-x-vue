@@ -101,7 +101,7 @@ export const store = new Vuex.Store({
         },
 
         getOpenRound() {
-            return new Promise((resolve) => {
+            return new Promise((resolve, reject) => {
                 axios.get('http://localhost:5000/get-open-round')
                     .then(response => {
                         resolve(response);
@@ -116,18 +116,18 @@ export const store = new Vuex.Store({
         checkFutureRound() {
             return new Promise((resolve, reject) => {
                 axios.get('http://127.0.0.1:5000/check-future-rounds')
-                .then(response => {
-                    resolve(response);
-                })
+                    .then(response => {
+                        resolve(response);
+                    })
                     .catch(error => {
                         console.log(error);
                         reject(error);
                     })
-                })
-            },
+            })
+        },
         //Get user predictions from snail-x-core/core/router.py using email
         getPredictions() {
-            return new Promise((resolve, reject) => {
+            return new Promise((resolve) => {
                 axios.post('http://127.0.0.1:5000/user-predictions', {
                     email: localStorage.getItem("user_email")
                 }, {
@@ -153,7 +153,6 @@ export const store = new Vuex.Store({
                     })
             })
         },
-
         getActiveRound() {
             return new Promise((resolve, reject) => {
                 axios.get('http://127.0.0.1:5000/get-active-round')
@@ -178,7 +177,7 @@ export const store = new Vuex.Store({
                     })
             })
         },
-          
+
         getInflightRound() {
             return new Promise((resolve, reject) => {
                 axios.get('http://127.0.0.1:5000/get-inflight-round')
