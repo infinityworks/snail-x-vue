@@ -16,7 +16,7 @@
                     <router-link to="/" class="nav-link">Enter</router-link>
                 </li>
                 <li>
-                    <router-link to="/" class="nav-link">Results</router-link>
+                    <router-link :to="{ name: 'results' }" class="nav-link">Results</router-link>
                 </li>
                 <li>
                     <router-link to="/" class="nav-link">Leaderboards</router-link>

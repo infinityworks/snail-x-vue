@@ -5,6 +5,7 @@ import HomeComponent from "./components/Home.vue"
 import LoginComponent from "./components/auth/Login.vue"
 import LogoutComponent from "./components/auth/Logout.vue"
 import MakePredictionsComponent from "./components/predictions/MakePredictions.vue"
+import RoundLeaderboardComponent from "./components/RoundLeaderboard"
 
 Vue.use(Router);
 
@@ -44,5 +45,10 @@ export default new Router({
                 requiresAuth: true
             }
         },
+        {
+            path: "/leaderboards",
+            name: "round-leaderboard",
+            component: RoundLeaderboardComponent
+        }
     ]
 })
