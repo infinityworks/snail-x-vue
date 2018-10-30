@@ -8,6 +8,7 @@ export const store = new Vuex.Store({
     state: {
         user: localStorage.getItem('user_email') || null,
         user_first_name: localStorage.getItem('user_first_name') || null
+        // user_id: localStorage.getItem('user_id') || null
     },
     getters: {
         loggedIn(state) {
@@ -18,19 +19,21 @@ export const store = new Vuex.Store({
         },
         userFirstName(state) {
             return state.user_first_name
-        },
-        userID(state) {
-            return state.user_id
         }
+        // userID(state) {
+        //     return state.user_id
+        // }
     },
     mutations: {
         loginUser(state, {user_email, user_first_name}) {
             state.user = user_email;
-            state.user_first_name = user_first_name
+            state.user_first_name = user_first_name;
+            // state.user_id = user_id
         },
         logoutUser(state) {
             state.user = null;
-            state.user_first_name = null
+            state.user_first_name = null;
+            // state.user_id = null
         }
     },
     actions: {
@@ -64,6 +67,7 @@ export const store = new Vuex.Store({
                         const user_first_name = response.data['user_first_name'];
                         localStorage.setItem('user_email', user_email);
                         localStorage.setItem('user_first_name', user_first_name);
+                        // localStorage.setItem('user_id', user_id);
                         context.commit('loginUser', {user_email, user_first_name});
                         resolve(response);
                     })
@@ -95,19 +99,19 @@ export const store = new Vuex.Store({
             return new Promise((resolve) => {
                 localStorage.removeItem('user_email');
                 localStorage.removeItem('user_first_name');
+                // localStorage.removeItem('user_id');
                 context.commit('logoutUser');
                 resolve()
             })
         },
 
         getOpenRound() {
-            return new Promise((resolve) => {
+            return new Promise((resolve, reject) => {
                 axios.get('http://localhost:5000/get-open-round')
                     .then(response => {
                         resolve(response);
                     })
                     .catch(error => {
-                        console.log(error);
                         reject(error);
                     })
             })
@@ -120,7 +124,6 @@ export const store = new Vuex.Store({
                     resolve(response);
                 })
                     .catch(error => {
-                        console.log(error);
                         reject(error);
                     })
                 })
@@ -138,6 +141,57 @@ export const store = new Vuex.Store({
                     .then(response => {
                         resolve(response);
                     })
+                    .catch(error => {
+                        reject(error);
+                    })
+
+            })
+        },
+        //Get user predictions from snail-x-core/core/router.py using email
+        getPredictionsAndResults(context, IDinfo) {
+            return new Promise((resolve, reject) => {
+                axios.post('http://127.0.0.1:5000/get-predictions-and-results', {
+                    userEmail: this.state.user,
+                    roundID: IDinfo.roundID
+                })
+                    .then(response => {
+                        resolve(response);
+                    })
+                    .catch(error => {
+                        reject(error);
+                    })
+
+            })
+        },
+        //Get user predictions from snail-x-core/core/router.py using email
+        getInflightPredictions(context, IDinfo) {
+            return new Promise((resolve, reject) => {
+                axios.post('http://127.0.0.1:5000/specific-user-predictions', {
+                    userEmail: this.state.user,
+                    roundID: IDinfo.roundID
+                })
+                    .then(response => {
+                        resolve(response);
+                    })
+                    .catch(error => {
+                        reject(error);
+                    })
+
+            })
+        },
+        //Get user predictions from snail-x-core/core/router.py using email
+        checkClosedPredictions(context, IDinfo) {
+            return new Promise((resolve, reject) => {
+                axios.post('http://127.0.0.1:5000/check-closed-predictions', {
+                    userEmail: this.state.user,
+                    roundID: IDinfo.roundID
+                })
+                    .then(response => {
+                        resolve(response);
+                    })
+                    .catch(error => {
+                        reject(error);
+                    })
 
             })
         },
@@ -148,7 +202,6 @@ export const store = new Vuex.Store({
                     racePredictions: predictions.racePredictions
                 })
                     .catch(error => {
-                        console.log(error);
                         reject(error);
                     })
             })
@@ -161,7 +214,6 @@ export const store = new Vuex.Store({
                         resolve(response)
                     })
                     .catch(error => {
-                        console.log(error);
                         reject(error);
                     })
             })
@@ -173,12 +225,32 @@ export const store = new Vuex.Store({
                         resolve(response);
                     })
                     .catch(error => {
-                        console.log(error);
                         reject(error);
                     })
             })
         },
-          
+        getClosedRoundResults() {
+            return new Promise((resolve, reject) => {
+                axios.get('http://127.0.0.1:5000/get-closed-round-results')
+                    .then(response => {
+                        resolve(response);
+                    })
+                    .catch(error => {
+                        reject(error);
+                    })
+            })
+        },
+        getAllRoundsClosed(){
+          return new Promise((resolve, reject) => {
+              axios.get('http://127.0.0.1:5000/get-all-rounds-closed')
+                  .then(response => {
+                      resolve(response);
+                  })
+                  .catch(error => {
+                      reject(error);
+                  })
+          })
+        },
         getInflightRound() {
             return new Promise((resolve, reject) => {
                 axios.get('http://127.0.0.1:5000/get-inflight-round')
@@ -187,7 +259,6 @@ export const store = new Vuex.Store({
                     })
                     .catch(error => {
                         alert("errror!");
-                        console.log(error);
                         reject(error);
                     })
             })

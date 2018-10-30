@@ -1,8 +1,7 @@
 <template>
         <div id="home" class="home-body">
-        <!--<h1 v-if="!loggedIn" style="color: whitesmoke">Welcome, please register or login.</h1>-->
         <h1 id="home-message"></h1>
-        <div id="predictions-banner"></div>
+        <div v-if="loggedIn" id="predictions-banner"></div>
         <div id="message-and-image"></div>
         <div v-if="loggedIn" id="predictions"></div>
             <div v-if="loggedIn" id="currentRoundResults"></div>
@@ -15,33 +14,35 @@
     export default {
         name: 'home',
         data() {
-            return {
-            }
+            return {}
         },
         computed: {
             ...mapGetters([
-                'loggedIn'
+                'loggedIn',
+                'userEmail'
             ])
         },
         created() {
-            this.checkFutureRound()
+            this.checkFutureRound();
         },
         methods: {
             async checkFutureRound() {
                 const {data} = await this.getFutureRound()
-                var status = data['status'];
+                const status = data['status'];
                 if (status === 1) {
                     this.buildFutureRoundMessage(data)
-                } else if (status === 0) {
+                }
+                else if (status === 0) {
                     if (this.loggedIn) {
                         this.buildPredictionsMessage()
-                    } else {
+                    }
+                    else {
                         this.setupLoggedOut()
                     }
                 }
             },
-            getFutureRound() {  // returns 1 if a round exists that has a start datetime later than now, and 0 if no (relies on#
-                                // there never being future rounds if a preceding round is not closed)
+            getFutureRound() {  // returns 1 if a round exists that has a start datetime later than now, and 0 if no (relies on
+                // there never being future rounds if a preceding round is not closed)
                 return this.$store.dispatch('checkFutureRound')
             },
             buildFutureRoundMessage(response_data) {
@@ -64,113 +65,189 @@
                 } else {
                     update_text = update_text + "and " + minutes + " minutes";
                 }
+                if (!this.loggedIn) {
+                    update_text = update_text + " - <a href='/#/login'>log in</a> or <a href='/#/register'>register</a> to play!"
+                }
                 document.getElementById("home-message").innerHTML = update_text;
             },
             async buildPredictionsMessage() {
-                var response = await this.getPredictions()
-                alert(response.data[0])
-                if (response.data[0] !== "No Open Round") {
-                    if (response.data.message !== "Error. No predictions made") {   // User has made predictions on a currrently open round
-                        document.getElementById('predictions-banner').innerHTML = "Your predictions for round " + response.data[0][4] + ":";
-                        var printed_table = '<table><tr><th>Race No.</th><th>Snail No.</th><th>Snail Name</th><th>Trainer</th> </tr>';
+                const is_inflight = await this.getInflightRound();
+                const inflight_status = is_inflight.data['inflight'];
+                if (inflight_status) { // logged in, check if round in flight
+                    const inflight_id = is_inflight.data['round_id'];
+                    const predictions = await this.getInflightPredictions(inflight_id);
 
-                        for (var y = 0; y < response.data.length; y++) {
-                            printed_table += '<tr><td>' + (y + 1) + '</td><td>' + response.data[y][1] + '</td><td>' + response.data[y][2] + '</td><td>' + response.data[y][3] + '</td></tr>';
-                        }
-                        printed_table += '</table>';
-                    } else if (response.data.message === "Error. No predictions made") {    // User has not made predictions, but a round is open
-                        printed_table = "<center><h3 style='background-color:white; margin-right:30%;'>You have not made any predictions. To do so <a href='snailx.racing'>Click Here</a></h3></center>"
-                        printed_table += "<img height=70% width=70% src=https://static.euronews.com/articles/stories/03/22/91/52/880x495_cmsv2_1f2eea27-fa79-5a58-90f2-c298315d4e68-3229152.jpg>"
+                    if (predictions.data.message === "Error. No predictions made") {
+                        this.getCurrentRoundResults()
                     }
-                } else {    // There is no open round (ROUND COULD BE INFLIGHT!!!)
-                    printed_table = "<center><h3 style='background-color:white; padding:5px; margin-right:50%'>No rounds currently open!</h3></center>"
+                    else {
+                        this.displayPredictionsAndResults(inflight_id)
+                    }
                 }
-                document.getElementById('message-and-image').innerHTML = printed_table;
+                else {
 
+                    const all_closed_status = await this.getAllRoundsClosed();
+                    alert(all_closed_status.data);
+                    if (all_closed_status.data) {
+                        alert("if statement");
+                        const all_closed_predictions = await this.checkClosedPredictions(all_closed_status.data);
+                        alert(all_closed_predictions);
+                        if (all_closed_predictions.data) {
+                            this.displayPredictionsAndResults(all_closed_status.data)
+                        }
+                        else {
+                           this.getClosedRoundResults(all_closed_status.data)
+                        }
+
+                    }
+                    else {
+                        let response = await this.getPredictions();
+                        if (response.data[0] !== "No Open Round") {
+                            if (response.data.message !== "Error. No predictions made") {   // User has made predictions on a currently open round
+                                document.getElementById('predictions-banner').innerHTML = "Your predictions for round " + response.data[0][4] + ":";
+                                var printed_table = '<table><tr><th>Race No.</th><th>Snail No.</th><th>Snail Name</th><th>Trainer</th> </tr>';
+
+                                for (var y = 0; y < response.data.length; y++) {
+                                    printed_table += '<tr><td>' + (y + 1) + '</td><td>' + response.data[y][1] + '</td><td>' + response.data[y][2] + '</td><td>' + response.data[y][3] + '</td></tr>';
+                                }
+                                printed_table += '</table>';
+                            } else if (response.data.message === "Error. No predictions made") {    // User has not made predictions, but a round is open
+                                printed_table = "<center><h3 style='background-color:white; margin-right:30%;'>You have not made any predictions. To do so <a href='/#/make-predictions'>Click Here</a></h3></center>"
+                                printed_table += "<img height=70% width=70% src=https://static.euronews.com/articles/stories/03/22/91/52/880x495_cmsv2_1f2eea27-fa79-5a58-90f2-c298315d4e68-3229152.jpg>"
+                            }
+                            document.getElementById('message-and-image').innerHTML = printed_table;
+                        }
+                        else {    // There is no open round (ROUND COULD BE INFLIGHT!!!)
+                            printed_table = "<center><h3 style='background-color:white; padding:5px; margin-right:50%'>No rounds currently open!</h3></center>"
+                            document.getElementById('message-and-image').innerHTML = printed_table;
+                        }
+                    }
+                }
             },
-            
-            getPredictions() {  // Returns a response with 'No Open Round' if a round is not open, and details of an open roundd plus predictions
-                                // if there is an open round
+
+            getPredictions() {  // Returns a response with 'No Open Round' if a round is not open, and details of an open round plus predictions
+                // if there is an open round
                 return this.$store.dispatch('getPredictions')
                     .then((response) => {
                         return response
                     })
             },
-            
+
+            getInflightPredictions(roundID) {  // Returns a response with 'No Open Round' if a round is not open, and details of an open round plus predictions
+                // if there is an open round
+                return this.$store.dispatch('getInflightPredictions', {
+                    roundID: roundID
+                })
+                    .then((response) => {
+                        return response
+                    })
+            },
+            checkClosedPredictions(roundID) {
+                return this.$store.dispatch('checkClosedPredictions', {
+                    roundID: roundID
+                })
+                    .then((response) => {
+                        return response
+                    })
+            },
             async setupLoggedOut() {
                 const response = await this.getActiveRound();
-                console.log(response);
                 const round_open = response.data['open'];
-                console.log(round_open);
                 var printed_table = "";
                 if (round_open) { // If logged out and there is an open round
-                    printed_table += "<center><h3 style='background-color:white; margin-right:30%;'>A round is now open to predict on - <a href='/#/login'>Log in</a>/<a href='/#/register'>register</a> to play!</h3></center>"
+                    printed_table += "<center><h3 style='background-color:white; margin-right:30%;'>A round is now open to predict on - <a href='/#/login'>log in</a>/<a href='/#/register'>register</a> to play!</h3></center>"
                 }
-                else { // if logged in and there is no future and no open round (INCLUDES INFLIGHT)
+                else { // if logged out and there is no future and no open round (INCLUDES INFLIGHT)
                     const inflight_response = await this.getInflightRound();
-                    if(inflight_response.data['inflight']) {
-                        printed_table += "<center><h3 style='background-color:white; margin-right:30%;'>A round is now in flight - <a href='/#/login'>Log in</a>/<a href='/#/register'>register</a> to view the results!</h3></center>"
-                    } else {
-                        printed_table += "<center><h3 style='background-color:white; margin-right:30%;'>No rounds have been scheduled. <a href='/#/login'>Log in</a>/<a href='/#/register'>register</a> to play!</h3></center>"
+                    const is_inflight = inflight_response.data['inflight'];
+                    if (is_inflight) {
+                        printed_table += "<center><h3 style='background-color:white; margin-right:30%;'>A round is now in flight - <a href='/#/login'>log in</a>/<a href='/#/register'>register</a> to view the results!</h3></center>"
+                    }
+                    else {
+                        const closed_rounds = await this.getAllRoundsClosed();
+                        const is_closed = closed_rounds.data;
+                        if (is_closed) {
+                            this.getClosedRoundResults(is_closed)
+                        }
+                        else {
+                            printed_table += "<center><h3 style='background-color:white; margin-right:30%;'>No rounds have been scheduled. <a href='/#/login'>Log in</a>/<a href='/#/register'>register</a> to play!</h3></center>"
+                        }
                     }
                 }
                 printed_table += "<img height=70% width=70% src=https://static.euronews.com/articles/stories/03/22/91/52/880x495_cmsv2_1f2eea27-fa79-5a58-90f2-c298315d4e68-3229152.jpg>"
                 document.getElementById('message-and-image').innerHTML = printed_table;
             },
+
             getActiveRound() { //  Returns data where ['open'] is True if an open round exists and False if not
                 return this.$store.dispatch('getActiveRound')
             },
+
             getInflightRound() {
                 return this.$store.dispatch('getInflightRound')
+            },
+            getAllRoundsClosed() {
+                return this.$store.dispatch('getAllRoundsClosed')
+            },
+            displayPredictionsAndResults(roundID) {
+                this.$store.dispatch('getPredictionsAndResults', {
+                    roundID: roundID
+                })
                     .then((response) => {
-                        if(response.data[0] !== "No Open Round") {
-                            if (response.data.message !== "Error. No predictions made") {
-                                document.getElementById('predictions-banner').innerHTML = "Your predictions for round " + response.data[0][4] + ":";
-                                var printed_table = '<table><tr><th>Race No.</th><th>Snail No.</th><th>Snail Name</th><th>Trainer</th> </tr>';
-                                for (var y = 0; y < response.data.length; y++) {
-                                    printed_table += '<tr><td>' + (y + 1) + '</td><td>' + response.data[y][1] + '</td><td>' + response.data[y][2] + '</td><td>' + response.data[y][3] + '</td></tr>';
-                                }
-                                printed_table += '</table>';
+                        let printed_table = '<h3 style="background-color: white">Current Round Results</h3><table><tr><th>Race No.</th><th>Winning Snail</th><th>Trainer</th><th>Predicted Snail</th><th>Finishing Position</th> </tr>';
+                        for (let x = 0; x < response.data.length; x++) {
+                            if (response.data[x]['actualWinner']) {
+                                printed_table += '<tr><td>' + (x + 1) + '</td><td>' + response.data[x]['predictedName'] + '</td><td>' + response.data[x]['actualWinner'] + '</td><td>' + response.data[x]['winnerTrainer'] + '</td><td>' + response.data[x]['position'] + '</td></tr>';
                             }
-                            else if (response.data.message == "Error. No predictions made") {
-                                printed_table = "<center><h3 style='background-color:white; margin-right:30%;'>You have not made any predictions. To do so <a href='snailx.racing'>Click Here</a></h3></center>"
-                                printed_table+="<img height=70% width=70% src=https://static.euronews.com/articles/stories/03/22/91/52/880x495_cmsv2_1f2eea27-fa79-5a58-90f2-c298315d4e68-3229152.jpg>"
-                            }
-                        }
-                        else {
-                            printed_table = "<center><h3 style='background-color:white; padding:5px; margin-right:50%'>No rounds currently open!</h3></center>"
-                        }
-                        document.getElementById('predictions').innerHTML = printed_table;
-                    })
-                },
+                            else {
+                                printed_table += '<tr><td>' + (x + 1) + '</td><td>' + response.data[x]['predictedName'] + '</td><td>' + ' ' + '</td><td>' + ' ' + '</td><td>' + ' ' + '</td></tr>';
 
+                            }
+                        }
+                        printed_table += '</table>';
+                        document.getElementById('currentRoundResults').innerHTML = printed_table;
+                    })
+            },
             getCurrentRoundResults() {
                 this.$store.dispatch('getCurrentRoundResults')
                     .then((response) => {
+                        let printed_table = "";
                         if (response.data.message !== "Error. No current round results") {
 
+                            // document.getElementById('predictions-banner').innerHTML = "Your predictions for round " + response.data[0][4] + ":";
+                            printed_table = '<h3 style="background-color: white">Current Round Results</h3><table><tr><th>Race No.</th><th>Winning Snail</th><th>Trainer</th></tr>';
 
-                                document.getElementById('predictions-banner').innerHTML = "Your predictions for round " + response.data[0][4] + ":";
-                                var printed_table = '<h3 style="background-color: white">Current Race Results</h3><table><tr><th>Race No.</th><th>Snail Name</th><th>Trainer</th> </tr>';
-
-                                for (var y = 0; y < response.data.length; y++) {
-                                    printed_table += '<tr><td>' + (y + 1) + '</td><td>' + response.data[y][2] + '</td><td>' + response.data[y][3] + '</td></tr>';
-                                }
-                                printed_table += '</table>';
-                            } else {
-                                var printed_table = "<h3 style='background-color: white'>No results avaliable</h3>"
+                            for (var y = 0; y < response.data.length; y++) {
+                                printed_table += '<tr><td>' + (y + 1) + '</td><td>' + response.data[y][2] + '</td><td>' + response.data[y][3] + '</td></tr>';
                             }
+                            printed_table += '</table>';
+                        }
+
+                        else {
+                            // var printed_table = "<h3 style='background-color: white'>No results available</h3>"
+                            printed_table = "<h3 style='background-color: white'> </h3>"
+                        }
 
                         document.getElementById('currentRoundResults').innerHTML = printed_table;
                     })
+            },
+            getClosedRoundResults(roundID) {
+                this.$store.dispatch('getClosedRoundResults')
+                    .then((response) => {
+                        const round_text = "Results: Round " + roundID;
+                        let printed_table = '<h3 style="background-color: white">' + round_text + '</h3><table><tr><th>Race No.</th><th>Winning Snail</th><th>Trainer</th></tr>';
 
-
+                        for (let i = 0; i < response.data.length; i++) {
+                            printed_table += '<tr><td>' + (i + 1) + '</td><td>' + response.data[i]['snailName'] + '</td><td>' + response.data[i]['trainerName'] + '</td></tr>';
+                        }
+                        printed_table += '</table>';
+                        document.getElementById('message-and-image').innerHTML = printed_table;
+                    })
+            },
+            beforeMount() {
+                this.getPredictions();
+                this.getCurrentRoundResults();
+                // this.setupLoggedOut();
             }
-        },
-        beforeMount() {
-            this.getPredictions();
-            this.getCurrentRoundResults();
-            this.setupLoggedOut();
         }
     }
 </script>
