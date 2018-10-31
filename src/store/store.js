@@ -119,7 +119,7 @@ export const store = new Vuex.Store({
 
         checkFutureRound() {
             return new Promise((resolve, reject) => {
-                axios.get('https://127.0.0.1:5000/check-future-rounds')
+                axios.get('https://snail-x-core.herokuapp.com/check-future-rounds')
                 .then(response => {
                     resolve(response);
                 })
