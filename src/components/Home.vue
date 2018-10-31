@@ -7,7 +7,7 @@
         <div v-if="loggedIn" id="predictions"></div>
             <div v-if="loggedIn" id="currentRoundResults"></div>
         </div>
-                </center>
+        </center>
 </template>
 
 <script>
@@ -78,7 +78,6 @@
                 if (inflight_status) { // logged in, check if round in flight
                     const inflight_id = is_inflight.data['round_id'];
                     const predictions = await this.getInflightPredictions(inflight_id);
-                    const closed_predictions = await this.getClosedPredictions(inflight_id);
 
                     if (predictions.data.message === "Error. No predictions made") {
                         this.getCurrentRoundResults()
@@ -284,6 +283,7 @@
          background: rgba(65, 107, 44, 1);
          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
          color:white;
+         align-items: center;
     }
     /*--- prediction banner styling end ---*/
 
