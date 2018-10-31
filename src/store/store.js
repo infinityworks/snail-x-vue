@@ -47,8 +47,6 @@ export const store = new Vuex.Store({
                     })
             })
         },
-
-
         loginUser(context, credentials) {
             return new Promise((resolve, reject) => {
                 axios.post('http://127.0.0.1:5000/login-user', {
@@ -72,8 +70,6 @@ export const store = new Vuex.Store({
                     })
             })
         },
-
-
         registerUser(context, credentials) {
             return new Promise((resolve, reject) => {
                 axios.post('http://127.0.0.1:5000/register-user', {
@@ -90,7 +86,6 @@ export const store = new Vuex.Store({
                     })
             })
         },
-
         logoutUser(context) {
             return new Promise((resolve) => {
                 localStorage.removeItem('user_email');
@@ -99,35 +94,31 @@ export const store = new Vuex.Store({
                 resolve()
             })
         },
-
         getOpenRound() {
-            return new Promise((resolve) => {
+            return new Promise((resolve, reject) => {
                 axios.get('http://localhost:5000/get-open-round')
                     .then(response => {
                         resolve(response);
                     })
                     .catch(error => {
-                        console.log(error);
                         reject(error);
                     })
             })
         },
-
         checkFutureRound() {
             return new Promise((resolve, reject) => {
                 axios.get('http://127.0.0.1:5000/check-future-rounds')
-                .then(response => {
-                    resolve(response);
-                })
+                    .then(response => {
+                        resolve(response);
+                    })
                     .catch(error => {
-                        console.log(error);
                         reject(error);
                     })
-                })
-            },
+            })
+        },
         //Get user predictions from snail-x-core/core/router.py using email
         getPredictions() {
-            return new Promise((resolve, reject) => {
+            return new Promise((resolve) => {
                 axios.post('http://127.0.0.1:5000/user-predictions', {
                     email: localStorage.getItem("user_email")
                 }, {
@@ -138,7 +129,6 @@ export const store = new Vuex.Store({
                     .then(response => {
                         resolve(response);
                     })
-
             })
         },
         storePredictions(context, predictions) {
@@ -148,12 +138,10 @@ export const store = new Vuex.Store({
                     racePredictions: predictions.racePredictions
                 })
                     .catch(error => {
-                        console.log(error);
                         reject(error);
                     })
             })
         },
-
         getActiveRound() {
             return new Promise((resolve, reject) => {
                 axios.get('http://127.0.0.1:5000/get-active-round')
@@ -161,7 +149,6 @@ export const store = new Vuex.Store({
                         resolve(response)
                     })
                     .catch(error => {
-                        console.log(error);
                         reject(error);
                     })
             })
@@ -173,12 +160,10 @@ export const store = new Vuex.Store({
                         resolve(response);
                     })
                     .catch(error => {
-                        console.log(error);
                         reject(error);
                     })
             })
         },
-          
         getInflightRound() {
             return new Promise((resolve, reject) => {
                 axios.get('http://127.0.0.1:5000/get-inflight-round')
@@ -186,9 +171,31 @@ export const store = new Vuex.Store({
                         resolve(response)
                     })
                     .catch(error => {
-                        alert("errror!");
-                        console.log(error);
                         reject(error);
+                    })
+            })
+        },
+        getAllRoundIds() {
+            return new Promise((resolve, reject) => {
+                axios.get('http://127.0.0.1:5000/round-ids')
+                    .then(response => {
+                        resolve(response)
+                    })
+                    .catch(error => {
+                        reject(error)
+                    })
+            })
+        },
+        getRoundLeaderboardByRoundId(context, round_id) {
+            return new Promise((resolve, reject) => {
+                axios.post('http://127.0.0.1:5000/round-results', {
+                    round_id: round_id
+                })
+                    .then(response => {
+                        resolve(response)
+                    })
+                    .catch(error => {
+                        reject(error)
                     })
             })
         }

@@ -46,7 +46,7 @@ export default new Router({
             }
         },
         {
-            path: "/leaderboards",
+            path: "/round-leaderboard",
             name: "round-leaderboard",
             component: RoundLeaderboardComponent
         }
