@@ -95,7 +95,6 @@
                         else {
                            this.getClosedRoundResults(all_closed_status.data)
                         }
-
                     }
                     else {
                         let response = await this.getPredictions();
