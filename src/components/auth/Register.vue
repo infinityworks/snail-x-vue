@@ -3,7 +3,7 @@
         <form id="reg"
               @submit.prevent="validateForm">
 
-            <h3 class="page-title">Register</h3>
+            <h3 style="color:white;" class="page-title">Register</h3>
             <hr>
             <div class="form-group">
 

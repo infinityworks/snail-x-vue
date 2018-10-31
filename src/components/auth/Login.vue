@@ -1,6 +1,6 @@
 <template>
     <div id="login">
-        <h3 class="page-title">Login</h3>
+        <h3 style="color:white;" class="page-title">Login</h3>
         <hr>
         <form action="#" @submit.prevent="login">
             <input id="email-field" class="form-control" type="text" name="email"
