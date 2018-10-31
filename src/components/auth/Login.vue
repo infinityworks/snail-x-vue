@@ -1,6 +1,6 @@
 <template>
     <div id="login">
-        <h3 class="page-title">Login</h3>
+        <h3 class="page-title" style="color:white">Login</h3>
         <hr>
         <form action="#" @submit.prevent="login">
             <input id="email-field" class="form-control" type="text" name="email"
@@ -47,12 +47,12 @@
 
 <style scoped>
     #login {
-        position: fixed;
-        left: 24.5%;
+        position: absolute;
+        left: 25%;
         top: 15%;
         width: 50%;
         border: 1px solid grey;
-        background-color: white;
+        background-color: #a57827;
         margin: 200px auto auto;
         padding: 20px;
     }

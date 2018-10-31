@@ -1,9 +1,11 @@
 <template>
+    <center>
     <div id="register">
+
         <form id="reg"
               @submit.prevent="validateForm">
 
-            <h3 class="page-title">Register</h3>
+            <h3 class="page-title" style="color:white;">Register</h3>
             <hr>
             <div class="form-group">
 
@@ -30,6 +32,7 @@
             </div>
         </form>
     </div>
+    </center>
 </template>
 
 <script>
@@ -157,19 +160,21 @@
 
 <style scoped>
     #register {
-        position: fixed;
+        position: absolute;
         overflow: auto;
-        top: 10%;
-        left: 11%;
         width: 50%;
+        left: 25%;
+        top: 25%;
         border: 1px solid grey;
-        background-color: white;
+        background-color: #a57827;
         margin: 5% auto auto;
         padding: 20px;
+        color:white;
     }
 
     input {
         margin-right: 1em;
+        color:white;
     }
 
     .validation-alert {

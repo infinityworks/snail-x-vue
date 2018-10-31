@@ -1,10 +1,12 @@
 <template>
+
     <div id="app" class="container">
+        <marquee><h3 style="color:white">Visitor our sponsor: GoDaddy! 99p Domains! Cheap Webhosting! Store all your clients details with us! We're trustworthy! Promise <3</h3></marquee>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
               integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
               crossorigin="anonymous">
         <div id="snail-div">
-            <img id="snail-img" src="https://banner2.kisspng.com/20180225/avw/kisspng-escargot-sea-snail-clip-art-brown-cartoon-snail-5a92648eaab006.4875330315195434386992.jpg"/>
+            <img id="snail-img" src="./components/assets/snail-x-logo.png"/>
         </div>
 
         <div class="navigation-bar" id="navbar">
@@ -36,7 +38,9 @@
 
         <div id="sidebanner"></div>
         <router-view @authenticated="setAuthenticated"/>
+        <center><img style="width:80%; padding-top:60%;" src="./components/assets/godaddy-ad.jpg"/></center>
     </div>
+
 </template>
 
 <script>
@@ -78,23 +82,23 @@
         -moz-osx-font-smoothing: grayscale;
         color: #2c3e50;
         font-size: 24px;
-        height: 100vh;
         overflow: auto;
+        background-color:#573B0C;
+        background-opacity: 50%;
+        height:100vh;
     }
 
     .nav {
-        display: flex;
         padding: 8px 0;
-        /*justify-content: flex-end;*/
         margin: auto;
-        /*flex-wrap: nowrap !important;*/
         list-style: none;
         align-items: center;
         height: 50px;
+        color:white;
     }
 
     .nav a {
-        color: #636b6f;
+        color: white;
         padding: 0 24px;
         font-size: 12px;
         font-weight: 800;
@@ -113,6 +117,7 @@
         text-transform: uppercase;
     }
 
+
     .nav a:hover {
         color: green;
     }
@@ -125,45 +130,38 @@
 
     .container {
         max-width: 60%;
+        left:10%;
+        right:10%;
+        margin:0 auto;
     }
 
     .navigation-bar {
         background-color: whitesmoke;
         border: 1px grey solid;
-        position: fixed;
-        left: 27.5%;
-        top: 26%;
         padding-left: 1em;
         margin: auto;
-        width: 80%;
+        width: 66%;
         display: flex;
+        background-color:#a57827;
+        color:white;
     }
 
     body {
         /*width: 1024px;*/
-        background-image: url("https://3c1703fe8d.site.internapcdn.net/newman/gfx/news/hires/2014/1-newstaugusti.jpg");
+        background-image: url("https://images.wallpaperscraft.com/image/grain_grass_field_green_83891_1920x1080.jpg");
         overflow: auto;
 
-    }
-
-    #app {
-        /*width: 1024px;*/
-        margin: auto;
-        /*position: center;*/
     }
 
 
     #snail-div {
         display: flex;
-        margin-top: 5%;
         height: 20%;
     }
 
     #snail-img {
         margin: auto;
-        /*top: 4%;*/
-        /*left: 40%;*/
-        width: 20%;
+        width: 60%;
     }
 
     .page-title {

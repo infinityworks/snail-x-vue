@@ -1,12 +1,16 @@
 <template>
+        <center>
         <div id="home" class="home-body">
         <!--<h1 v-if="!loggedIn" style="color: whitesmoke">Welcome, please register or login.</h1>-->
         <h1 id="home-message"></h1>
         <div id="predictions-banner"></div>
         <div id="message-and-image"></div>
         <div v-if="loggedIn" id="predictions"></div>
+                <hr>
+                <h1 style="color:white;">Current Round Results</h1>
             <div v-if="loggedIn" id="currentRoundResults"></div>
         </div>
+                </center>
 </template>
 
 <script>
@@ -68,7 +72,6 @@
             },
             async buildPredictionsMessage() {
                 var response = await this.getPredictions()
-                alert(response.data[0])
                 if (response.data[0] !== "No Open Round") {
                     if (response.data.message !== "Error. No predictions made") {   // User has made predictions on a currrently open round
                         document.getElementById('predictions-banner').innerHTML = "Your predictions for round " + response.data[0][4] + ":";
@@ -158,7 +161,7 @@
                                 }
                                 printed_table += '</table>';
                             } else {
-                                var printed_table = "<h3 style='background-color: white'>No results avaliable</h3>"
+                                var printed_table = "<h3>No results currently available</h3>"
                             }
 
                         document.getElementById('currentRoundResults').innerHTML = printed_table;
@@ -176,11 +179,7 @@
 </script>
 
 <style>
-    #home {
-        position: fixed;
-        top: 40%;
-        left: 32%;
-    }
+
 
     /*--- future rounds message styling ---*/
 
@@ -189,35 +188,40 @@
         /*color: black;*/
         width: 50%;
         margin-bottom: 5%;
-        margin-left: 5%;
         text-align: center;
+            background-color: #a57827;
+            color:white;
     }
 
     /*--- prediction banner styling ---*/
 
     #predictions-banner {
         background-color: white;
-        width: 35%;
+        width: 50%;
         margin-bottom: 5%;
-        margin-left: 17.5%;
         text-align: center;
+            background-color: #a57827;
+            color:white;
+    }
+
+    #currentRoundResults {
+        background-color: white;
+        width: 50%;
+        margin-bottom: 5%;
+        text-align: center;
+            background-color: #a57827;
+            color:white;
     }
 
     /*--- prediction banner styling end ---*/
 
     /*--- User predictions table styling ---*/
 
-    .home-body {
-        width: 750px;
-        background-color: whitesmoke;
-        border: 1px grey solid;
-        position: fixed;
-        left: 27.5%;
-    }
     
     table {
         width: 70%;
-        background-color: white;
+        background-color: #a57827;
+            color: white;
     }
 
     table, th, td {
