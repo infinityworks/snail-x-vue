@@ -48,6 +48,7 @@
         },
 
         created() {
+            document.title = "Make Predictions - Snail-X";
             this.get_open_round()
         },
         watch: {
@@ -77,11 +78,13 @@
                 }
                 else {
                     this.$store.dispatch('storePredictions', {
-                        racePredictions: this.checkedRadios
+                        racePredictions: this.checkedRadios,
                     })
                         .then(() => {
                             this.$router.push({name: 'home'})
-                            document.title = "Make Prediction - Snail-X";
+                        })
+                        .catch(() => {
+                            alert("HELP");
                         })
                 }
             }
