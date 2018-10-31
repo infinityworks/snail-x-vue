@@ -1,10 +1,11 @@
 <template>
+
     <div id="app" class="container">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
               integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
               crossorigin="anonymous">
         <div id="snail-div">
-            <img id="snail-img" src="https://banner2.kisspng.com/20180225/avw/kisspng-escargot-sea-snail-clip-art-brown-cartoon-snail-5a92648eaab006.4875330315195434386992.jpg"/>
+            <img id="snail-img" src="./components/assets/snail-x-logo.png"/>
         </div>
 
         <div class="navigation-bar" id="navbar">
@@ -13,7 +14,7 @@
                     <router-link to="/" class="nav-link">Home</router-link>
                 </li>
                 <li>
-                    <router-link to="/" class="nav-link">Enter</router-link>
+                    <router-link to="/make-predictions" class="nav-link">Enter</router-link>
                 </li>
                 <li>
                     <router-link to="/" class="nav-link">Results</router-link>
@@ -28,15 +29,19 @@
                     <router-link :to="{ name: 'register' }" class="nav-link">Register</router-link>
                 </li>
                 <li v-if="loggedIn">
-                    <p style="color: orange; display: inline-block;">Welcome, {{ userFirstName }}</p>
-                    <router-link style="display: inline-block;" :to="{ name: 'logout' }" class="nav-link">Logout</router-link>
+                    <router-link to="/" class="nav-link">Welcome, {{ userFirstName }}</router-link>
+                </li>
+                <li v-if="loggedIn">
+                <router-link :to="{ name: 'logout' }" class="nav-link">Logout</router-link>
                 </li>
             </ul>
         </div>
 
         <div id="sidebanner"></div>
         <router-view @authenticated="setAuthenticated"/>
+        <center><img style="width:80%; padding-top:60%;" src="./components/assets/godaddy-ad.jpg"/></center>
     </div>
+
 </template>
 
 <script>
@@ -74,29 +79,28 @@
 
     #app {
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
         color: #2c3e50;
         font-size: 24px;
-        height: 100vh;
         overflow: auto;
+        height:100vh;
+        width:50%;
+        background: rgba(224, 224, 224, 0.6);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
 
     .nav {
-        display: flex;
         padding: 8px 0;
-        /*justify-content: flex-end;*/
         margin: auto;
-        /*flex-wrap: nowrap !important;*/
         list-style: none;
         align-items: center;
         height: 50px;
+        color:white;
     }
 
     .nav a {
-        color: #636b6f;
+        color: white;
         padding: 0 24px;
-        font-size: 12px;
+        font-size: 13.5px;
         font-weight: 800;
         letter-spacing: .05rem;
         text-decoration: none;
@@ -106,15 +110,16 @@
     .nav p {
         color: #636b6f;
         padding: 0 20px;
-        font-size: 12px;
+        font-size: 13.5px;
         font-weight: 800;
         letter-spacing: .05rem;
         text-decoration: none;
         text-transform: uppercase;
     }
 
+
     .nav a:hover {
-        color: green;
+        color: #7208c9;
     }
 
     .btn {
@@ -124,46 +129,38 @@
     }
 
     .container {
-        max-width: 60%;
+        max-width: 40%;
+        left:10%;
+        right:10%;
+        margin:0 auto;
     }
 
     .navigation-bar {
-        background-color: whitesmoke;
         border: 1px grey solid;
-        position: fixed;
-        left: 27.5%;
-        top: 26%;
-        padding-left: 1em;
         margin: auto;
-        width: 80%;
+        width: 100%;
         display: flex;
+        background: rgba(65, 107, 44, 1);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        color:#A6854A;
     }
 
     body {
         /*width: 1024px;*/
-        background-image: url("https://3c1703fe8d.site.internapcdn.net/newman/gfx/news/hires/2014/1-newstaugusti.jpg");
+        background-image: url("http://s1.1zoom.net/big3/193/Snails_Closeup_536743_1920x1080.jpg");
         overflow: auto;
 
-    }
-
-    #app {
-        /*width: 1024px;*/
-        margin: auto;
-        /*position: center;*/
     }
 
 
     #snail-div {
         display: flex;
-        margin-top: 5%;
         height: 20%;
     }
 
     #snail-img {
         margin: auto;
-        /*top: 4%;*/
-        /*left: 40%;*/
-        width: 20%;
+        width: 85%;
     }
 
     .page-title {

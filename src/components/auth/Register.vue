@@ -155,21 +155,24 @@
     }
 </script>
 
-<style scoped>
+<style>
     #register {
-        position: fixed;
+        position: absolute;
         overflow: auto;
-        top: 10%;
-        left: 11%;
-        width: 50%;
+        width: 40%;
+        left: 30%;
+        top: 20%;
         border: 1px solid grey;
-        background-color: white;
         margin: 5% auto auto;
         padding: 20px;
+        color: white;
+        background: rgba(65, 107, 44, 1);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
 
     input {
         margin-right: 1em;
+        color:white;
     }
 
     .validation-alert {

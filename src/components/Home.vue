@@ -252,60 +252,64 @@
             beforeMount() {
                 this.getPredictions();
                 this.getCurrentRoundResults();
-                // this.setupLoggedOut();
             }
         }
     }
 </script>
 
 <style>
-    #home {
-        position: fixed;
-        top: 40%;
-        left: 32%;
-    }
+
 
     /*--- future rounds message styling ---*/
 
     #home-message {
-        background-color: white;
-        /*color: black;*/
-        width: 50%;
-        margin-bottom: 5%;
-        margin-left: 5%;
-        text-align: center;
+            width: 100%;
+            text-align: center;
+            background: rgba(65, 107, 44, 1);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            color:white;
     }
 
     /*--- prediction banner styling ---*/
 
     #predictions-banner {
-        background-color: white;
-        width: 35%;
-        margin-bottom: 5%;
-        margin-left: 17.5%;
-        text-align: center;
+        width: 100%;
+            text-align: center;
+            background: rgba(65, 107, 44, 1);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            color:white;
     }
 
+    #currentRoundResults {
+        width: 100%;
+            text-align: center;
+            background: rgba(65, 107, 44, 1);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            color:white;
+    }
+    #message-and-image {
+         background: rgba(65, 107, 44, 1);
+         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+         color:white;
+    }
     /*--- prediction banner styling end ---*/
 
     /*--- User predictions table styling ---*/
 
-    .home-body {
-        width: 750px;
-        background-color: whitesmoke;
-        border: 1px grey solid;
-        position: fixed;
-        left: 27.5%;
-    }
-    
+
     table {
-        width: 70%;
-        background-color: white;
+            width:10%;
+            background: rgba(65, 107, 44, 1);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
     }
 
     table, th, td {
         border: 1px solid black;
         border-collapse: collapse;
+            color: black;
+            background-color:white;
+            width:10%;
     }
 
     th, td {
