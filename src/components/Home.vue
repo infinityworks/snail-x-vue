@@ -159,8 +159,6 @@
                 else { // if logged out and there is no future and no open round (INCLUDES INFLIGHT)
                     const inflight_response = await this.getInflightRound();
                     const is_inflight = inflight_response.data['inflight'];
-                    alert("is inflight");
-                    alert(is_inflight);
                     if (is_inflight) {
                         printed_table += "<center><h3>A round is now in flight - <a href='/#/login'>log in</a>/<a href='/#/register'>register</a> to view the results!</h3></center>"
                     }
@@ -190,7 +188,6 @@
                 return this.$store.dispatch('getAllRoundsClosed')
             },
             displayPredictionsAndResults(roundID) {
-                alert("displayPredictionsAndResults");
                 this.$store.dispatch('getPredictionsAndResults', {
                     roundID: roundID
                 })
@@ -210,7 +207,6 @@
                     })
             },
             getCurrentRoundResults() {
-                alert("getCurrentRoundResults");
                 this.$store.dispatch('getCurrentRoundResults')
                     .then((response) => {
                         let printed_table = "";
@@ -234,7 +230,6 @@
                     })
             },
             getClosedRoundResults(roundID) {
-                alert("getClosedRoundResults");
                 this.$store.dispatch('getClosedRoundResults')
                     .then((response) => {
                         const round_text = "Results: Round " + roundID;
