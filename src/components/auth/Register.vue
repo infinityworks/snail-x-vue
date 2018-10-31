@@ -149,6 +149,7 @@
                 })
                     .then(() => {
                         this.$router.push({name: 'login'})
+                        document.title = "Register - Snail-X";
                     })
             }
         }

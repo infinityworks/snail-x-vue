@@ -248,6 +248,7 @@
             beforeMount() {
                 this.getPredictions();
                 this.getCurrentRoundResults();
+                document.title = "Home - Snail-X";
             }
         }
     }

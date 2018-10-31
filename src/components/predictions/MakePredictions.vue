@@ -81,6 +81,7 @@
                     })
                         .then(() => {
                             this.$router.push({name: 'home'})
+                            document.title = "Make Prediction - Snail-X";
                         })
                 }
             }
