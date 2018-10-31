@@ -201,6 +201,9 @@ export const store = new Vuex.Store({
                     userEmail: this.state.user,
                     racePredictions: predictions.racePredictions
                 })
+                    .then(response => {
+                        resolve(response)
+                    })
                     .catch(error => {
                         reject(error);
                     })
