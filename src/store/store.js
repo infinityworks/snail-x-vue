@@ -180,9 +180,9 @@ export const store = new Vuex.Store({
             })
         },
         //Get user predictions from snail-x-core/core/router.py using email
-        checkClosedPredictions(context, IDinfo) {
+        getClosedPredictions(context, IDinfo) {
             return new Promise((resolve, reject) => {
-                axios.post('http://127.0.0.1:5000/check-closed-predictions', {
+                axios.post('http://127.0.0.1:5000/get-closed-predictions', {
                     userEmail: this.state.user,
                     roundID: IDinfo.roundID
                 })
@@ -258,7 +258,6 @@ export const store = new Vuex.Store({
                         resolve(response)
                     })
                     .catch(error => {
-                        alert("errror!");
                         reject(error);
                     })
             })

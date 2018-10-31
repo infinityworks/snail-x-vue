@@ -27,6 +27,7 @@
         },
         methods: {
             async checkFutureRound() {
+                alert("checkFutureRound");
                 const {data} = await this.getFutureRound()
                 const status = data['status'];
                 if (status === 1) {
@@ -46,6 +47,7 @@
                 return this.$store.dispatch('checkFutureRound')
             },
             buildFutureRoundMessage(response_data) {
+                alert("buildFutureRoundMessage");
                 var update_text = "Next round opens in ";
                 var days = response_data["days"];
                 if (days === 1) {
@@ -71,6 +73,7 @@
                 document.getElementById("home-message").innerHTML = update_text;
             },
             async buildPredictionsMessage() {
+                alert("buildPredictionsMessage");
                 const is_inflight = await this.getInflightRound();
                 const inflight_status = is_inflight.data['inflight'];
                 if (inflight_status) { // logged in, check if round in flight
@@ -87,11 +90,8 @@
                 else {
 
                     const all_closed_status = await this.getAllRoundsClosed();
-                    alert(all_closed_status.data);
                     if (all_closed_status.data) {
-                        alert("if statement");
-                        const all_closed_predictions = await this.checkClosedPredictions(all_closed_status.data);
-                        alert(all_closed_predictions);
+                        const all_closed_predictions = await this.getClosedPredictions(all_closed_status.data);
                         if (all_closed_predictions.data) {
                             this.displayPredictionsAndResults(all_closed_status.data)
                         }
@@ -142,8 +142,8 @@
                         return response
                     })
             },
-            checkClosedPredictions(roundID) {
-                return this.$store.dispatch('checkClosedPredictions', {
+            getClosedPredictions(roundID) {
+                return this.$store.dispatch('getClosedPredictions', {
                     roundID: roundID
                 })
                     .then((response) => {
@@ -151,15 +151,18 @@
                     })
             },
             async setupLoggedOut() {
+                alert("setupLoggedOut");
                 const response = await this.getActiveRound();
                 const round_open = response.data['open'];
-                var printed_table = "";
+                let printed_table = "";
                 if (round_open) { // If logged out and there is an open round
                     printed_table += "<center><h3 style='background-color:white; margin-right:30%;'>A round is now open to predict on - <a href='/#/login'>log in</a>/<a href='/#/register'>register</a> to play!</h3></center>"
                 }
                 else { // if logged out and there is no future and no open round (INCLUDES INFLIGHT)
                     const inflight_response = await this.getInflightRound();
                     const is_inflight = inflight_response.data['inflight'];
+                    alert("is inflight");
+                    alert(is_inflight);
                     if (is_inflight) {
                         printed_table += "<center><h3 style='background-color:white; margin-right:30%;'>A round is now in flight - <a href='/#/login'>log in</a>/<a href='/#/register'>register</a> to view the results!</h3></center>"
                     }
@@ -189,6 +192,7 @@
                 return this.$store.dispatch('getAllRoundsClosed')
             },
             displayPredictionsAndResults(roundID) {
+                alert("displayPredictionsAndResults");
                 this.$store.dispatch('getPredictionsAndResults', {
                     roundID: roundID
                 })
@@ -208,6 +212,7 @@
                     })
             },
             getCurrentRoundResults() {
+                alert("getCurrentRoundResults");
                 this.$store.dispatch('getCurrentRoundResults')
                     .then((response) => {
                         let printed_table = "";
@@ -231,6 +236,7 @@
                     })
             },
             getClosedRoundResults(roundID) {
+                alert("getClosedRoundResults");
                 this.$store.dispatch('getClosedRoundResults')
                     .then((response) => {
                         const round_text = "Results: Round " + roundID;
