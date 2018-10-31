@@ -27,7 +27,6 @@
         },
         methods: {
             async checkFutureRound() {
-                alert("checkFutureRound");
                 const {data} = await this.getFutureRound()
                 const status = data['status'];
                 if (status === 1) {
@@ -110,13 +109,13 @@
                                 }
                                 printed_table += '</table>';
                             } else if (response.data.message === "Error. No predictions made") {    // User has not made predictions, but a round is open
-                                printed_table = "<center><h3 style='background-color:white; margin-right:30%;'>You have not made any predictions. To do so <a href='/#/make-predictions'>Click Here</a></h3></center>"
+                                printed_table = "<center><h3>You have not made any predictions. To do so <a href='/#/make-predictions'>Click Here</a></h3></center>"
                                 printed_table += "<img height=70% width=70% src=https://static.euronews.com/articles/stories/03/22/91/52/880x495_cmsv2_1f2eea27-fa79-5a58-90f2-c298315d4e68-3229152.jpg>"
                             }
                             document.getElementById('message-and-image').innerHTML = printed_table;
                         }
                         else {    // There is no open round (ROUND COULD BE INFLIGHT!!!)
-                            printed_table = "<center><h3 style='background-color:white; padding:5px; margin-right:50%'>No rounds currently open!</h3></center>"
+                            printed_table = "<center><h3>No rounds currently open!</h3></center>"
                             document.getElementById('message-and-image').innerHTML = printed_table;
                         }
                     }
@@ -153,13 +152,13 @@
                 const round_open = response.data['open'];
                 let printed_table = "";
                 if (round_open) { // If logged out and there is an open round
-                    printed_table += "<center><h3 style='background-color:white; margin-right:30%;'>A round is now open to predict on - <a href='/#/login'>log in</a>/<a href='/#/register'>register</a> to play!</h3></center>"
+                    printed_table += "<center><h3>A round is now open to predict on - <a href='/#/login'>log in</a>/<a href='/#/register'>register</a> to play!</h3></center>"
                 }
                 else { // if logged out and there is no future and no open round (INCLUDES INFLIGHT)
                     const inflight_response = await this.getInflightRound();
                     const is_inflight = inflight_response.data['inflight'];
                     if (is_inflight) {
-                        printed_table += "<center><h3 style='background-color:white; margin-right:30%;'>A round is now in flight - <a href='/#/login'>log in</a>/<a href='/#/register'>register</a> to view the results!</h3></center>"
+                        printed_table += "<center><h3>A round is now in flight - <a href='/#/login'>log in</a>/<a href='/#/register'>register</a> to view the results!</h3></center>"
                     }
                     else {
                         const closed_rounds = await this.getAllRoundsClosed();
@@ -168,7 +167,7 @@
                             this.getClosedRoundResults(is_closed)
                         }
                         else {
-                            printed_table += "<center><h3 style='background-color:white; margin-right:30%;'>No rounds have been scheduled. <a href='/#/login'>Log in</a>/<a href='/#/register'>register</a> to play!</h3></center>"
+                            printed_table += "<center><h3>No rounds have been scheduled. <a href='/#/login'>Log in</a>/<a href='/#/register'>register</a> to play!</h3></center>"
                         }
                     }
                 }
@@ -191,7 +190,7 @@
                     roundID: roundID
                 })
                     .then((response) => {
-                        let printed_table = '<h3 style="background-color: white">Current Round Results</h3><table><tr><th>Race No.</th><th>Winning Snail</th><th>Trainer</th><th>Predicted Snail</th><th>Finishing Position</th> </tr>';
+                        let printed_table = '<h3>Current Round Results</h3><table><tr><th>Race No.</th><th>Winning Snail</th><th>Trainer</th><th>Predicted Snail</th><th>Finishing Position</th> </tr>';
                         for (let x = 0; x < response.data.length; x++) {
                             if (response.data[x]['actualWinner']) {
                                 printed_table += '<tr><td>' + (x + 1) + '</td><td>' + response.data[x]['predictedName'] + '</td><td>' + response.data[x]['actualWinner'] + '</td><td>' + response.data[x]['winnerTrainer'] + '</td><td>' + response.data[x]['position'] + '</td></tr>';
@@ -212,7 +211,7 @@
                         if (response.data.message !== "Error. No current round results") {
 
                             // document.getElementById('predictions-banner').innerHTML = "Your predictions for round " + response.data[0][4] + ":";
-                            printed_table = '<h3 style="background-color: white">Current Round Results</h3><table><tr><th>Race No.</th><th>Winning Snail</th><th>Trainer</th></tr>';
+                            printed_table = '<h3>Current Round Results</h3><table><tr><th>Race No.</th><th>Winning Snail</th><th>Trainer</th></tr>';
 
                             for (var y = 0; y < response.data.length; y++) {
                                 printed_table += '<tr><td>' + (y + 1) + '</td><td>' + response.data[y][2] + '</td><td>' + response.data[y][3] + '</td></tr>';
@@ -222,7 +221,7 @@
 
                         else {
                             // var printed_table = "<h3 style='background-color: white'>No results available</h3>"
-                            printed_table = "<h3 style='background-color: white'> </h3>"
+                            printed_table = "<h3> </h3>"
                         }
 
                         document.getElementById('currentRoundResults').innerHTML = printed_table;
@@ -232,7 +231,7 @@
                 this.$store.dispatch('getClosedRoundResults')
                     .then((response) => {
                         const round_text = "Results: Round " + roundID;
-                        let printed_table = '<h3 style="background-color: white">' + round_text + '</h3><table><tr><th>Race No.</th><th>Winning Snail</th><th>Trainer</th></tr>';
+                        let printed_table = '<h3>' + round_text + '</h3><table><tr><th>Race No.</th><th>Winning Snail</th><th>Trainer</th></tr>';
 
                         for (let i = 0; i < response.data.length; i++) {
                             printed_table += '<tr><td>' + (i + 1) + '</td><td>' + response.data[i]['snailName'] + '</td><td>' + response.data[i]['trainerName'] + '</td></tr>';

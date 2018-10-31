@@ -1,7 +1,7 @@
 
 <template>
     <div id="make-predictions">
-        <h2 class="page-title">Make Predictions Here!</h2>
+        <h2 style="color:white" class="page-title">Make Predictions Here!</h2>
         <h3 class="round-name">{{ round_name }}</h3>
         <hr>
             <form @submit.prevent=submitForm()>
