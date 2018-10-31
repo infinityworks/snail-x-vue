@@ -1,5 +1,6 @@
 <template>
         <center>
+                <div><br>
         <div id="home" class="home-body">
         <!--<h1 v-if="!loggedIn" style="color: whitesmoke">Welcome, please register or login.</h1>-->
         <h1 id="home-message"></h1>
@@ -10,6 +11,7 @@
                 <h1 style="color:white;">Current Round Results</h1>
             <div v-if="loggedIn" id="currentRoundResults"></div>
         </div>
+                        </div>
                 </center>
 </template>
 
@@ -174,6 +176,7 @@
             this.getPredictions();
             this.getCurrentRoundResults();
             this.setupLoggedOut();
+            document.title = "Home - Snail-X";
         }
     }
 </script>
@@ -184,32 +187,28 @@
     /*--- future rounds message styling ---*/
 
     #home-message {
-        background-color: white;
-        /*color: black;*/
-        width: 50%;
-        margin-bottom: 5%;
-        text-align: center;
-            background-color: #a57827;
+            width: 100%;
+            text-align: center;
+            background: rgba(65, 107, 44, 1);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             color:white;
     }
 
     /*--- prediction banner styling ---*/
 
     #predictions-banner {
-        background-color: white;
-        width: 50%;
-        margin-bottom: 5%;
-        text-align: center;
-            background-color: #a57827;
+        width: 100%;
+            text-align: center;
+            background: rgba(65, 107, 44, 1);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             color:white;
     }
 
     #currentRoundResults {
-        background-color: white;
-        width: 50%;
-        margin-bottom: 5%;
-        text-align: center;
-            background-color: #a57827;
+        width: 100%;
+            text-align: center;
+            background: rgba(65, 107, 44, 1);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             color:white;
     }
 
@@ -220,7 +219,8 @@
     
     table {
         width: 70%;
-        background-color: #a57827;
+        background: rgba(65, 107, 44, 1);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             color: white;
     }
 

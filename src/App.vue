@@ -1,7 +1,6 @@
 <template>
 
     <div id="app" class="container">
-        <marquee><h3 style="color:white">Visitor our sponsor: GoDaddy! 99p Domains! Cheap Webhosting! Store all your clients details with us! We're trustworthy! Promise <3</h3></marquee>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
               integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
               crossorigin="anonymous">
@@ -15,7 +14,7 @@
                     <router-link to="/" class="nav-link">Home</router-link>
                 </li>
                 <li>
-                    <router-link to="/" class="nav-link">Enter</router-link>
+                    <router-link to="/make-prediction" class="nav-link">Enter</router-link>
                 </li>
                 <li>
                     <router-link to="/" class="nav-link">Results</router-link>
@@ -78,14 +77,13 @@
 
     #app {
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
         color: #2c3e50;
         font-size: 24px;
         overflow: auto;
-        background-color:#573B0C;
-        background-opacity: 50%;
         height:100vh;
+        width:50%;
+        background: rgba(224, 224, 224, 0.6);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
 
     .nav {
@@ -100,7 +98,7 @@
     .nav a {
         color: white;
         padding: 0 24px;
-        font-size: 12px;
+        font-size: 16px;
         font-weight: 800;
         letter-spacing: .05rem;
         text-decoration: none;
@@ -129,26 +127,26 @@
     }
 
     .container {
-        max-width: 60%;
+        max-width: 40%;
         left:10%;
         right:10%;
         margin:0 auto;
     }
 
     .navigation-bar {
-        background-color: whitesmoke;
         border: 1px grey solid;
         padding-left: 1em;
         margin: auto;
-        width: 66%;
+        width: 100%;
         display: flex;
-        background-color:#a57827;
-        color:white;
+        background: rgba(65, 107, 44, 1);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        color:#A6854A;
     }
 
     body {
         /*width: 1024px;*/
-        background-image: url("https://images.wallpaperscraft.com/image/grain_grass_field_green_83891_1920x1080.jpg");
+        background-image: url("http://s1.1zoom.net/big3/193/Snails_Closeup_536743_1920x1080.jpg");
         overflow: auto;
 
     }
@@ -161,7 +159,7 @@
 
     #snail-img {
         margin: auto;
-        width: 60%;
+        width: 85%;
     }
 
     .page-title {

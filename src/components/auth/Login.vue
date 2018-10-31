@@ -41,6 +41,9 @@
                     alert("Please enter a email and password of valid length (0 to 100 chars)");
                 }
             }
+        },
+        beforeMount() {
+            document.title = "Login - Snail-X";
         }
     }
 </script>
@@ -48,11 +51,12 @@
 <style scoped>
     #login {
         position: absolute;
-        left: 25%;
-        top: 15%;
-        width: 50%;
+        left: 30%;
+        top: 8%;
+        width: 40%;
         border: 1px solid grey;
-        background-color: #a57827;
+        background: rgba(65, 107, 44, 1);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         margin: 200px auto auto;
         padding: 20px;
     }

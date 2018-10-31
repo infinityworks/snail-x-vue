@@ -154,22 +154,26 @@
                         this.$router.push({name: 'login'})
                     })
             }
+        },
+        beforeMount() {
+            document.title = "Register - Snail-X";
         }
     }
 </script>
 
-<style scoped>
+<style>
     #register {
         position: absolute;
         overflow: auto;
-        width: 50%;
-        left: 25%;
-        top: 25%;
+        width: 40%;
+        left: 30%;
+        top: 20%;
         border: 1px solid grey;
-        background-color: #a57827;
         margin: 5% auto auto;
         padding: 20px;
-        color:white;
+        color: white;
+        background: rgba(65, 107, 44, 1);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
 
     input {
