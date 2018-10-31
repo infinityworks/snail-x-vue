@@ -1,4 +1,5 @@
 <template>
+        <center>
         <div id="home" class="home-body">
         <h1 id="home-message"></h1>
         <div v-if="loggedIn" id="predictions-banner"></div>
@@ -6,6 +7,7 @@
         <div v-if="loggedIn" id="predictions"></div>
             <div v-if="loggedIn" id="currentRoundResults"></div>
         </div>
+                </center>
 </template>
 
 <script>
@@ -242,6 +244,7 @@
             beforeMount() {
                 this.getPredictions();
                 this.getCurrentRoundResults();
+                document.title = "Home - Snail-X";
             }
         }
     }
