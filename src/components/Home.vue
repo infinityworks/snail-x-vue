@@ -1,13 +1,13 @@
 <template>
-        <center>
+    <center>
         <div id="home" class="home-body">
-        <h1 id="home-message"></h1>
-        <div v-if="loggedIn" id="predictions-banner"></div>
-        <div id="message-and-image"></div>
-        <div v-if="loggedIn" id="predictions"></div>
+            <h1 id="home-message"></h1>
+            <div v-if="loggedIn" id="predictions-banner"></div>
+            <div id="message-and-image"></div>
+            <div v-if="loggedIn" id="predictions"></div>
             <div v-if="loggedIn" id="currentRoundResults"></div>
         </div>
-                </center>
+    </center>
 </template>
 
 <script>
@@ -97,7 +97,7 @@
                             this.displayPredictionsAndResults(all_closed_status.data)
                         }
                         else {
-                           this.getClosedRoundResults(all_closed_status.data)
+                            this.getClosedRoundResults(all_closed_status.data)
                         }
 
                     }
@@ -221,17 +221,17 @@
                             for (var y = 0; y < response.data.length; y++) {
                                 printed_table += '<tr><td>' + (y + 1) + '</td><td>' + response.data[y][2] + '</td><td>' + response.data[y][3] + '</td></tr>';
 
-                                }
-                                printed_table += '</table>';
                             }
-                            else {
+                            printed_table += '</table>';
+                        }
+                        else {
                             // var printed_table = "<h3>No results currently available</h3>"
 
                             printed_table += "<h3> </h3>";
-                            }
+                        }
 
-                            document.getElementById('currentRoundResults').innerHTML = printed_table;
-                        })
+                        document.getElementById('currentRoundResults').innerHTML = printed_table;
+                    })
             },
             getClosedRoundResults(roundID) {
                 this.$store.dispatch('getClosedRoundResults')
@@ -257,54 +257,56 @@
     /*--- future rounds message styling ---*/
 
     #home-message {
-            width: 100%;
-            text-align: center;
-            background: rgba(65, 107, 44, 1);
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            color:white;
+        width: 100%;
+        text-align: center;
+        background: rgba(65, 107, 44, 1);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        color: white;
     }
 
     /*--- prediction banner styling ---*/
 
     #predictions-banner {
         width: 100%;
-            text-align: center;
-            background: rgba(65, 107, 44, 1);
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            color:white;
-
+        text-align: center;
+        background: rgba(65, 107, 44, 1);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        color: white;
     }
 
     #currentRoundResults {
-        width: 100%;
-            text-align: center;
-            background: rgba(65, 107, 44, 1);
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            color:white;
+        background: rgba(65, 107, 44, 1);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        color: white;
+        margin-bottom: 10px;
+        padding-bottom: 20px;
     }
+
     #message-and-image {
-         background: rgba(65, 107, 44, 1);
-         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-         color:white;
+        background: rgba(65, 107, 44, 1);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        color: white;
+        margin-bottom: 10px;
+        padding-bottom: 20px;
     }
+
     /*--- prediction banner styling end ---*/
 
     /*--- User predictions table styling ---*/
 
-
     table {
-            width:10%;
-            background: rgba(65, 107, 44, 1);
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        width: 10%;
+        background: rgba(65, 107, 44, 1);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
     }
 
     table, th, td {
         border: 1px solid black;
         border-collapse: collapse;
-            color: black;
-            background-color:white;
-            width:10%;
+        color: black;
+        background-color: white;
+        width: 10%;
     }
 
     th, td {
