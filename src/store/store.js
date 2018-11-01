@@ -320,8 +320,6 @@ export const store = new Vuex.Store({
                     })
             })
         },
-
-
         loginUser(context, credentials) {
             return new Promise((resolve, reject) => {
                 axios.post('http://127.0.0.1:5000/login-user', {
@@ -346,8 +344,6 @@ export const store = new Vuex.Store({
                     })
             })
         },
-
-
         registerUser(context, credentials) {
             return new Promise((resolve, reject) => {
                 axios.post('http://127.0.0.1:5000/register-user', {
@@ -364,7 +360,6 @@ export const store = new Vuex.Store({
                     })
             })
         },
-
         logoutUser(context) {
             return new Promise((resolve) => {
                 localStorage.removeItem('user_email');
@@ -374,10 +369,9 @@ export const store = new Vuex.Store({
                 resolve()
             })
         },
-
         getOpenRound() {
             return new Promise((resolve, reject) => {
-                axios.get('http://127.0.0.1:5000/get-open-round')
+                axios.get('http://localhost:5000/get-open-round')
                     .then(response => {
                         resolve(response);
                     })
@@ -386,18 +380,23 @@ export const store = new Vuex.Store({
                     })
             })
         },
-
         checkFutureRound() {
             return new Promise((resolve, reject) => {
                 axios.get('http://127.0.0.1:5000/check-future-rounds')
+                    .then(response => {
+                        resolve(response);
+                    })
+                    .then(response => {
+                        resolve(response);
+                    })
                 .then(response => {
                     resolve(response);
                 })
                     .catch(error => {
                         reject(error);
                     })
-                })
-            },
+            })
+        },
         //Get user predictions from snail-x-core/core/router.py using email
         getPredictions() {
             return new Promise((resolve, reject) => {
@@ -462,7 +461,6 @@ export const store = new Vuex.Store({
                     .catch(error => {
                         reject(error);
                     })
-
             })
         },
         storePredictions(context, predictions) {
@@ -479,7 +477,6 @@ export const store = new Vuex.Store({
                     })
             })
         },
-
         getActiveRound() {
             return new Promise((resolve, reject) => {
                 axios.get('http://127.0.0.1:5000/get-active-round')
@@ -513,16 +510,16 @@ export const store = new Vuex.Store({
                     })
             })
         },
-        getAllRoundsClosed(){
-          return new Promise((resolve, reject) => {
-              axios.get('http://127.0.0.1:5000/get-all-rounds-closed')
-                  .then(response => {
-                      resolve(response);
-                  })
-                  .catch(error => {
-                      reject(error);
-                  })
-          })
+        getAllRoundsClosed() {
+            return new Promise((resolve, reject) => {
+                axios.get('http://127.0.0.1:5000/get-all-rounds-closed')
+                    .then(response => {
+                        resolve(response);
+                    })
+                    .catch(error => {
+                        reject(error);
+                    })
+            })
         },
         getInflightRound() {
             return new Promise((resolve, reject) => {
@@ -532,6 +529,30 @@ export const store = new Vuex.Store({
                     })
                     .catch(error => {
                         reject(error);
+                    })
+            })
+        },
+        getAllRoundNames() {
+            return new Promise((resolve, reject) => {
+                axios.get('http://127.0.0.1:5000/round-names')
+                    .then(response => {
+                        resolve(response['data'])
+                    })
+                    .catch(error => {
+                        reject(error)
+                    })
+            })
+        },
+        getRoundLeaderboardByRoundName(context, round_name) {
+            return new Promise((resolve, reject) => {
+                axios.post('http://127.0.0.1:5000/round-results', {
+                    round_name: round_name
+                })
+                    .then(response => {
+                        resolve(response['data'])
+                    })
+                    .catch(error => {
+                        reject(error)
                     })
             })
         }
