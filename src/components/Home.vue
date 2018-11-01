@@ -72,6 +72,7 @@
                 }
                 document.getElementById("home-message").innerHTML = update_text;
             },
+
             async buildPredictionsMessage() {
                 const is_inflight = await this.getInflightRound();
                 const inflight_status = is_inflight.data['inflight'];
@@ -217,17 +218,23 @@
 
                             for (var y = 0; y < response.data.length; y++) {
                                 printed_table += '<tr><td>' + (y + 1) + '</td><td>' + response.data[y][2] + '</td><td>' + response.data[y][3] + '</td></tr>';
+
+                                // document.getElementById('predictions-banner').innerHTML = "Your predictions for round " + response.data[0][4] + ":";
+                                // var printed_table = '<h3 style="background-color: white">Current Race Results</h3><table><tr><th>Race No.</th><th>Snail Name</th><th>Trainer</th> </tr>';
+                                //
+                                // for (var y = 0; y < response.data.length; y++) {
+                                //     printed_table += '<tr><td>' + (y + 1) + '</td><td>' + response.data[y][2] + '</td><td>' + response.data[y][3] + '</td></tr>';
+                                }
+                                printed_table += '</table>';
                             }
-                            printed_table += '</table>';
-                        }
+                            else {
+                            // var printed_table = "<h3>No results currently available</h3>"
 
-                        else {
-                            // var printed_table = "<h3 style='background-color: white'>No results available</h3>"
-                            printed_table = "<h3> </h3>"
-                        }
+                            printed_table += "<h3> </h3>";
+                            }
 
-                        document.getElementById('currentRoundResults').innerHTML = printed_table;
-                    })
+                            document.getElementById('currentRoundResults').innerHTML = printed_table;
+                        })
             },
             getClosedRoundResults(roundID) {
                 this.$store.dispatch('getClosedRoundResults')
@@ -272,6 +279,7 @@
             background: rgba(65, 107, 44, 1);
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             color:white;
+
     }
 
     #currentRoundResults {

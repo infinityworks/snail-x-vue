@@ -85,6 +85,9 @@
                         })
                 }
             }
+        },
+        beforeMount() {
+            document.title = "Make Prediction - Snail-X";
         }
     }
 
