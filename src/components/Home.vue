@@ -1,22 +1,12 @@
 <template>
         <center>
-<<<<<<< HEAD
-=======
-                <div><br>
->>>>>>> ff0bf7b67edef0339551c4a78fff923d8fec0dda
         <div id="home" class="home-body">
         <h1 id="home-message"></h1>
         <div v-if="loggedIn" id="predictions-banner"></div>
         <div id="message-and-image"></div>
         <div v-if="loggedIn" id="predictions"></div>
-                <hr>
-                <h1 style="color:white;">Current Round Results</h1>
             <div v-if="loggedIn" id="currentRoundResults"></div>
         </div>
-<<<<<<< HEAD
-=======
-                        </div>
->>>>>>> ff0bf7b67edef0339551c4a78fff923d8fec0dda
                 </center>
 </template>
 
@@ -82,8 +72,8 @@
                 }
                 document.getElementById("home-message").innerHTML = update_text;
             },
+
             async buildPredictionsMessage() {
-<<<<<<< HEAD
                 const is_inflight = await this.getInflightRound();
                 const inflight_status = is_inflight.data['inflight'];
                 if (inflight_status) { // logged in, check if round in flight
@@ -95,21 +85,6 @@
                     }
                     else {
                         this.displayPredictionsAndResults(inflight_id)
-=======
-                var response = await this.getPredictions()
-                if (response.data[0] !== "No Open Round") {
-                    if (response.data.message !== "Error. No predictions made") {   // User has made predictions on a currrently open round
-                        document.getElementById('predictions-banner').innerHTML = "Your predictions for round " + response.data[0][4] + ":";
-                        var printed_table = '<table><tr><th>Race No.</th><th>Snail No.</th><th>Snail Name</th><th>Trainer</th> </tr>';
-
-                        for (var y = 0; y < response.data.length; y++) {
-                            printed_table += '<tr><td>' + (y + 1) + '</td><td>' + response.data[y][1] + '</td><td>' + response.data[y][2] + '</td><td>' + response.data[y][3] + '</td></tr>';
-                        }
-                        printed_table += '</table>';
-                    } else if (response.data.message === "Error. No predictions made") {    // User has not made predictions, but a round is open
-                        printed_table = "<center><h3 style='background-color:white; margin-right:30%;'>You have not made any predictions. To do so <a href='snailx.racing'>Click Here</a></h3></center>"
-                        printed_table += "<img height=70% width=70% src=https://static.euronews.com/articles/stories/03/22/91/52/880x495_cmsv2_1f2eea27-fa79-5a58-90f2-c298315d4e68-3229152.jpg>"
->>>>>>> ff0bf7b67edef0339551c4a78fff923d8fec0dda
                     }
                 }
                 else {
@@ -236,7 +211,6 @@
                     })
             },
             getCurrentRoundResults() {
-                alert("getCurrentRoundResults");
                 this.$store.dispatch('getCurrentRoundResults')
                     .then((response) => {
                         let printed_table = "";
@@ -245,31 +219,25 @@
                             // document.getElementById('predictions-banner').innerHTML = "Your predictions for round " + response.data[0][4] + ":";
                             printed_table = '<h3>Current Round Results</h3><table><tr><th>Race No.</th><th>Winning Snail</th><th>Trainer</th></tr>';
 
-<<<<<<< HEAD
                             for (var y = 0; y < response.data.length; y++) {
                                 printed_table += '<tr><td>' + (y + 1) + '</td><td>' + response.data[y][2] + '</td><td>' + response.data[y][3] + '</td></tr>';
-=======
-                                document.getElementById('predictions-banner').innerHTML = "Your predictions for round " + response.data[0][4] + ":";
-                                var printed_table = '<h3 style="background-color: white">Current Race Results</h3><table><tr><th>Race No.</th><th>Snail Name</th><th>Trainer</th> </tr>';
 
-                                for (var y = 0; y < response.data.length; y++) {
-                                    printed_table += '<tr><td>' + (y + 1) + '</td><td>' + response.data[y][2] + '</td><td>' + response.data[y][3] + '</td></tr>';
+                                // document.getElementById('predictions-banner').innerHTML = "Your predictions for round " + response.data[0][4] + ":";
+                                // var printed_table = '<h3 style="background-color: white">Current Race Results</h3><table><tr><th>Race No.</th><th>Snail Name</th><th>Trainer</th> </tr>';
+                                //
+                                // for (var y = 0; y < response.data.length; y++) {
+                                //     printed_table += '<tr><td>' + (y + 1) + '</td><td>' + response.data[y][2] + '</td><td>' + response.data[y][3] + '</td></tr>';
                                 }
                                 printed_table += '</table>';
-                            } else {
-                                var printed_table = "<h3>No results currently available</h3>"
->>>>>>> ff0bf7b67edef0339551c4a78fff923d8fec0dda
                             }
-                            printed_table += '</table>';
-                        }
+                            else {
+                            // var printed_table = "<h3>No results currently available</h3>"
 
-                        else {
-                            // var printed_table = "<h3 style='background-color: white'>No results available</h3>"
-                            printed_table = "<h3> </h3>"
-                        }
+                            printed_table += "<h3> </h3>";
+                            }
 
-                        document.getElementById('currentRoundResults').innerHTML = printed_table;
-                    })
+                            document.getElementById('currentRoundResults').innerHTML = printed_table;
+                        })
             },
             getClosedRoundResults(roundID) {
                 alert("getClosedRoundResults");
@@ -290,15 +258,6 @@
                 this.getCurrentRoundResults();
                 document.title = "Home - Snail-X";
             }
-<<<<<<< HEAD
-=======
-        },
-        beforeMount() {
-            this.getPredictions();
-            this.getCurrentRoundResults();
-            this.setupLoggedOut();
-            document.title = "Home - Snail-X";
->>>>>>> ff0bf7b67edef0339551c4a78fff923d8fec0dda
         }
     }
 </script>
@@ -324,17 +283,7 @@
             background: rgba(65, 107, 44, 1);
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             color:white;
-<<<<<<< HEAD
-=======
-    }
 
-    #currentRoundResults {
-        width: 100%;
-            text-align: center;
-            background: rgba(65, 107, 44, 1);
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            color:white;
->>>>>>> ff0bf7b67edef0339551c4a78fff923d8fec0dda
     }
 
     #currentRoundResults {
@@ -353,21 +302,12 @@
 
     /*--- User predictions table styling ---*/
 
-<<<<<<< HEAD
 
     table {
             width:10%;
             background: rgba(65, 107, 44, 1);
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
-=======
-    
-    table {
-        width: 70%;
-        background: rgba(65, 107, 44, 1);
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            color: white;
->>>>>>> ff0bf7b67edef0339551c4a78fff923d8fec0dda
     }
 
     table, th, td {

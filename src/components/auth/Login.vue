@@ -1,10 +1,6 @@
 <template>
     <div id="login">
-<<<<<<< HEAD
-        <h3 style="color:white;" class="page-title">Login</h3>
-=======
         <h3 class="page-title" style="color:white">Login</h3>
->>>>>>> ff0bf7b67edef0339551c4a78fff923d8fec0dda
         <hr>
         <form action="#" @submit.prevent="login">
             <input id="email-field" class="form-control" type="text" name="email"

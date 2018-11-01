@@ -101,11 +101,7 @@
     .nav a {
         color: white;
         padding: 0 24px;
-<<<<<<< HEAD
         font-size: 13.5px;
-=======
-        font-size: 16px;
->>>>>>> ff0bf7b67edef0339551c4a78fff923d8fec0dda
         font-weight: 800;
         letter-spacing: .05rem;
         text-decoration: none;
@@ -142,10 +138,6 @@
 
     .navigation-bar {
         border: 1px grey solid;
-<<<<<<< HEAD
-=======
-        padding-left: 1em;
->>>>>>> ff0bf7b67edef0339551c4a78fff923d8fec0dda
         margin: auto;
         width: 100%;
         display: flex;

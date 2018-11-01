@@ -4,12 +4,7 @@
 
         <form id="reg"
               @submit.prevent="validateForm">
-
-<<<<<<< HEAD
-            <h3 style="color:white;" class="page-title">Register</h3>
-=======
             <h3 class="page-title" style="color:white;">Register</h3>
->>>>>>> ff0bf7b67edef0339551c4a78fff923d8fec0dda
             <hr>
             <div class="form-group">
 
