@@ -182,7 +182,7 @@
     }
 
     .validation-alert {
-        color: red;
+        color:white;
         font-size: medium;
     }
 </style>
