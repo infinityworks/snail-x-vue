@@ -1,5 +1,5 @@
 <template>
-    <center>
+    <!-- <center> -->
     <div id="register">
 
         <form id="reg"
@@ -31,7 +31,7 @@
             </div>
         </form>
     </div>
-    </center>
+    <!-- </center> -->
 </template>
 
 <script>
@@ -166,7 +166,7 @@
 
 <style>
     #register {
-        position: absolute;
+        position: fixed;
         overflow: auto;
         width: 40%;
         left: 30%;
@@ -185,7 +185,14 @@
     }
 
     .validation-alert {
-        color: red;
+        color:white;
         font-size: medium;
+    }
+    .btn-warning {
+        float: right;
+        margin-right: 10px;
+    }
+    .btn-primary {
+        float: right;
     }
 </style>

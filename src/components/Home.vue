@@ -25,12 +25,13 @@
             ])
         },
         created() {
+            document.title = "Home - Snail-X";
             this.checkFutureRound();
             document.title = "Home - Snail-X";
         },
         methods: {
             async checkFutureRound() {
-                const {data} = await this.getFutureRound()
+                const {data} = await this.getFutureRound();
                 const status = data['status'];
                 if (status === 1) {
                     this.buildFutureRoundMessage(data)
@@ -89,11 +90,10 @@
                     }
                 }
                 else {
-
                     const all_closed_status = await this.getAllRoundsClosed();
                     if (all_closed_status.data) {
                         const all_closed_predictions = await this.getClosedPredictions(all_closed_status.data);
-                        if (all_closed_predictions.data) {
+                        if (all_closed_predictions.data.message !== "No predictions made") {
                             this.displayPredictionsAndResults(all_closed_status.data)
                         }
                         else {
@@ -194,10 +194,10 @@
                     roundID: roundID
                 })
                     .then((response) => {
-                        let printed_table = '<h3>Current Round Results</h3><table><tr><th>Race No.</th><th>Winning Snail</th><th>Trainer</th><th>Predicted Snail</th><th>Finishing Position</th> </tr>';
+                        let printed_table = '<h3>Current Round Results</h3><table><tr><th>Race No.</th><th>Predicted Snail</th><th>Finishing Position</th><th>Winning Snail</th><th>Winning Snail Trainer</th> </tr>';
                         for (let x = 0; x < response.data.length; x++) {
                             if (response.data[x]['actualWinner']) {
-                                printed_table += '<tr><td>' + (x + 1) + '</td><td>' + response.data[x]['predictedName'] + '</td><td>' + response.data[x]['actualWinner'] + '</td><td>' + response.data[x]['winnerTrainer'] + '</td><td>' + response.data[x]['position'] + '</td></tr>';
+                                printed_table += '<tr><td>' + (x + 1) + '</td><td>' + response.data[x]['predictedName'] + '</td><td>' + response.data[x]['position'] + '</td><td>' + response.data[x]['actualWinner'] + '</td><td>' + response.data[x]['winnerTrainer'] + '</td></tr>';
                             }
                             else {
                                 printed_table += '<tr><td>' + (x + 1) + '</td><td>' + response.data[x]['predictedName'] + '</td><td>' + ' ' + '</td><td>' + ' ' + '</td><td>' + ' ' + '</td></tr>';
@@ -220,11 +220,6 @@
                             for (var y = 0; y < response.data.length; y++) {
                                 printed_table += '<tr><td>' + (y + 1) + '</td><td>' + response.data[y][2] + '</td><td>' + response.data[y][3] + '</td></tr>';
 
-                                // document.getElementById('predictions-banner').innerHTML = "Your predictions for round " + response.data[0][4] + ":";
-                                // var printed_table = '<h3 style="background-color: white">Current Race Results</h3><table><tr><th>Race No.</th><th>Snail Name</th><th>Trainer</th> </tr>';
-                                //
-                                // for (var y = 0; y < response.data.length; y++) {
-                                //     printed_table += '<tr><td>' + (y + 1) + '</td><td>' + response.data[y][2] + '</td><td>' + response.data[y][3] + '</td></tr>';
                                 }
                                 printed_table += '</table>';
                             }

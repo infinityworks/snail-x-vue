@@ -53,7 +53,7 @@
 
 <style scoped>
     #login {
-        position: absolute;
+        position: fixed;
         left: 30%;
         top: 8%;
         width: 40%;
