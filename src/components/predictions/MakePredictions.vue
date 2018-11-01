@@ -1,36 +1,35 @@
-
 <template>
     <div id="make-predictions">
         <h2 style="color:white" class="page-title">Make Predictions Here!</h2>
         <h3 class="round-name">{{ round_name }}</h3>
         <hr>
-            <form @submit.prevent=submitForm()>
-                <div v-for="(race, index) in races" class="race" style="margin-bottom: 2rem">
-                    <h4 class="race-number">Race {{ index+1 }}</h4>
-                    <div v-for="snail in race.race_data" style="overflow:hidden">
-                        <div style="float:left">
-                            <div>
-                                <div>Snail: {{ snail.snail_name}}</div>
-                                <div>Trainer: {{ snail.trainer_name}}</div>
-                            </div>
-                        </div>
+        <form @submit.prevent=submitForm()>
+            <div v-for="(race, index) in races" class="race" style="margin-bottom: 2rem">
+                <h4 class="race-number">Race {{ index+1 }}</h4>
+                <div v-for="snail in race.race_data" style="overflow:hidden">
+                    <div style="float:left">
                         <div>
-                            <input
+                            <div>Snail: {{ snail.snail_name}}</div>
+                            <div>Trainer: {{ snail.trainer_name}}</div>
+                        </div>
+                    </div>
+                    <div>
+                        <input
                                 class="radio"
                                 type="radio"
                                 :data-race-id="race.race_id"
                                 :data-snail-id="snail.snail_id"
                                 :name="race.race_id"
                                 @click="handleCheck"
-                            >
-                        </div>
+                        >
                     </div>
-                    <hr>
                 </div>
+                <hr>
+            </div>
 
-                <button type="button" class="btn btn-warning" onclick="window.history.back()">Back</button>
-                <button type="submit" class="btn btn-primary" style="margin-left: 0.5rem">Submit Predictions</button>
-            </form>
+            <button type="button" class="btn btn-warning" onclick="window.history.back()">Back</button>
+            <button type="submit" class="btn btn-primary" style="margin-left: 0.5rem">Submit Predictions</button>
+        </form>
     </div>
 </template>
 
@@ -46,7 +45,6 @@
                 checkedRadios: {},
             }
         },
-
         created() {
             this.get_open_round()
             document.title = "Make Prediction - Snail-X";
@@ -91,7 +89,6 @@
             document.title = "Make Prediction - Snail-X";
         }
     }
-
 </script>
 
 <style scoped>
@@ -115,6 +112,4 @@
         float: right;
         margin-top: 1em;
     }
-
-
 </style>

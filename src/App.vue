@@ -18,7 +18,7 @@
 
                 </li>
                 <li>
-                    <router-link to="/" class="nav-link">Results</router-link>
+                    <router-link :to="{ name: 'round-leaderboard' }" class="nav-link">Results</router-link>
                 </li>
                 <li>
                     <router-link to="/" class="nav-link">Leaderboards</router-link>
@@ -37,7 +37,6 @@
                 </li>
             </ul>
         </div>
-
         <div id="sidebanner"></div>
         <router-view @authenticated="setAuthenticated"/>
         <center><img style="width:80%; padding-top:60%;" src="./components/assets/godaddy-ad.jpg"/></center>
