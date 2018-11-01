@@ -171,6 +171,7 @@
                             this.getClosedRoundResults(is_closed)
                         }
                         else {
+                            alert("no rounds in DB");
                             printed_table += "<center><h3>No rounds have been scheduled. <a href='/#/login'>Log in</a>/<a href='/#/register'>register</a> to play!</h3></center>"
                         }
                     }
