@@ -109,7 +109,8 @@
                         if (response.data[0] !== "No Open Round") {
                             if (response.data.message !== "Error. No predictions made") {   // User has made predictions on a currently open round
                                 document.getElementById('predictions-banner').innerHTML = "Your predictions for round " + response.data[0][4] + ":";
-                                var printed_table = '<table><tr><th>Race No.</th><th>Snail Name</th><th>Trainer</th> </tr>';
+
+                                var printed_table = '<table><tr><th>Race No.</th><th>Snail Name</th><th>Trainer</th></tr>';
 
                                 for (var y = 0; y < response.data.length; y++) {
                                     printed_table += '<tr><td>' + (y + 1) + '</td><td>' + response.data[y][2] + '</td><td>' + response.data[y][3] + '</td></tr>';
