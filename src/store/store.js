@@ -175,24 +175,24 @@ export const store = new Vuex.Store({
                     })
             })
         },
-        getAllRoundIds() {
+        getAllRoundNames() {
             return new Promise((resolve, reject) => {
-                axios.get('http://127.0.0.1:5000/round-ids')
+                axios.get('http://127.0.0.1:5000/round-names')
                     .then(response => {
-                        resolve(response)
+                        resolve(response['data'])
                     })
                     .catch(error => {
                         reject(error)
                     })
             })
         },
-        getRoundLeaderboardByRoundId(context, round_id) {
+        getRoundLeaderboardByRoundName(context, round_name) {
             return new Promise((resolve, reject) => {
                 axios.post('http://127.0.0.1:5000/round-results', {
-                    round_id: round_id
+                    round_name: round_name
                 })
                     .then(response => {
-                        resolve(response)
+                        resolve(response['data'])
                     })
                     .catch(error => {
                         reject(error)

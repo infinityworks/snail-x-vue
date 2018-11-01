@@ -1,52 +1,62 @@
 <template>
     <div id="round-leaderboard" class="round-leadeboard-body">
         <h1>Round Leaderboards</h1>
-        <label for="round_ids">Rounds:</label>
-        <select name="round_ids" id="round_ids" v-model="selected"></select>
+        <label for="round_names">Rounds:</label>
+        <select name="round_names" id="round_names" v-model="selectedRoundName"></select>
         <table id="results_table">
-            <tr>
-                <th>Position</th>
-                <th>Email</th>
-                <th>Points</th>
-                <th>Time</th>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Position</th>
+                    <th>Email</th>
+                    <th>Points</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
         </table>
     </div>
 </template>
 
 <script>
+    import $ from 'jquery'
     export default {
         name: 'round-leaderboard',
         data() {
             return {
-                selected: ""
+                selectedRoundName: ""
             }
         },
         created() {
             this.initLeaderboardView();
         },
+        watch: {
+            selectedRoundName: function (val) {
+                this.loadLeaderboardForRoundId(val);
+            }
+        },
         methods: {
-            initLeaderboardView() {
-                this.populateSelectBoxWithRoundIds();
+            async initLeaderboardView() {
+                await this.populateSelectBoxWithRoundIds();
                 this.loadDefaultLeaderboard();
             },
             async loadLeaderboardForRoundId(roundId) {
-                const leaberboardResults  = await this.getLeaderboardByRoundId(roundId);
+                const leaberboardResults = await this.getLeaderboardByRoundName(roundId);
                 this.populateLeaderboardTable(leaberboardResults);
             },
             async populateSelectBoxWithRoundIds() {
-                const roundIds = await this.getAllClosedRoundsIds();
-                const select = document.getElementById('round_ids');
+                const roundNames = await this.getAllClosedRoundsNames();
+                const select = document.getElementById('round_names');
                 this.clearSelectBox(select);
-                for (let roundId in roundIds) {
+                for (let i in roundNames) {
                     let opt = document.createElement('option');
-                    opt.value = roundId;
-                    opt.innerHTML = roundId;
+                    opt.value = roundNames[i];
+                    opt.innerHTML = roundNames[i];
                     select.appendChild(opt);
                 }
             },
             populateLeaderboardTable(leaderboardResults) {
                 let table = document.getElementById('results_table');
+                $("#results_table tbody").remove();
+                let tbody = document.createElement('tbody');
                 for (let i = 0; i < leaderboardResults.length; i++) {
                     let tr = document.createElement('TR');
                     for (let j = 0; j < leaderboardResults[i].length; j++) {
@@ -54,29 +64,28 @@
                         td.appendChild(document.createTextNode(leaderboardResults[i][j]));
                         tr.appendChild(td)
                     }
-                    table.appendChild(tr);
+                    tbody.appendChild(tr);
                 }
+                table.appendChild(tbody);
             },
             loadDefaultLeaderboard() {
-                const select = document.getElementById("round_ids");
+                const select = document.getElementById("round_names");
                 const selectedRoundId = select.options[select.selectedIndex].value;
                 this.loadLeaderboardForRoundId(selectedRoundId);
             },
-            getLeaderboardByRoundId(roundId) {
-                this.$store.dispatch('getRoundLeaderboardByRoundId', {
-                    round_id: roundId
-                })
-                    .then(response => {
-                        console.log(response);
+            getLeaderboardByRoundName(roundName) {
+                return this.$store.dispatch('getRoundLeaderboardByRoundName', roundName)
+                    .then(response_data => {
+                        return response_data;
                     })
                     .catch(error => {
                         console.log(error)
                     })
             },
-            getAllClosedRoundsIds() {
-                return this.$store.dispatch('getAllRoundIds')
-                    .then(response => {
-                        return response['data'];
+            getAllClosedRoundsNames() {
+                return this.$store.dispatch('getAllRoundNames')
+                    .then(response_data => {
+                        return response_data;
                     })
                     .catch(error => {
                         console.log(error);
