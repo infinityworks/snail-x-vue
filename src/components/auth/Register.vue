@@ -1,5 +1,5 @@
 <template>
-    <center>
+    <!-- <center> -->
     <div id="register">
 
         <form id="reg"
@@ -31,7 +31,7 @@
             </div>
         </form>
     </div>
-    </center>
+    <!-- </center> -->
 </template>
 
 <script>
