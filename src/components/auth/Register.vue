@@ -185,4 +185,11 @@
         color:white;
         font-size: medium;
     }
+    .btn-warning {
+        float: right;
+        margin-right: 10px;
+    }
+    .btn-primary {
+        float: right;
+    }
 </style>
