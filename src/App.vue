@@ -15,6 +15,7 @@
                 </li>
                 <li v-if="loggedIn">
                     <router-link to="/make-predictions" class="nav-link">Enter</router-link>
+
                 </li>
                 <li>
                     <router-link to="/" class="nav-link">Results</router-link>
