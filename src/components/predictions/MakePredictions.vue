@@ -49,6 +49,7 @@
 
         created() {
             this.get_open_round()
+            document.title = "Make Prediction - Snail-X";
         },
         watch: {
             // call again the method if the route changes

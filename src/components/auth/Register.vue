@@ -44,6 +44,9 @@
                 allValid: true,
             }
         },
+        created() {
+            document.title = "Register - Snail-X";
+        },
         computed: {
             missingFirstName: function () { return this.firstName === ''; },
             missingLastName: function () { return this.lastName === ''; },

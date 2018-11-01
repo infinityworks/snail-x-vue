@@ -26,6 +26,7 @@
         },
         created() {
             this.checkFutureRound();
+            document.title = "Home - Snail-X";
         },
         methods: {
             async checkFutureRound() {
@@ -242,11 +243,7 @@
                         document.getElementById('message-and-image').innerHTML = printed_table;
                     })
             },
-            beforeMount() {
-                this.getPredictions();
-                this.getCurrentRoundResults();
-                document.title = "Home - Snail-X";
-            }
+
         }
     }
 </script>

@@ -24,6 +24,9 @@
                 password: ""
             }
         },
+        created(){
+            document.title = "Login - Snail-X";
+        },
         methods: {
             login() {
                 if (this.email !== "" && this.password !== "" && this.email.length < 100 && this.password.length < 100) {
