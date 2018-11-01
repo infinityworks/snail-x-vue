@@ -1,16 +1,21 @@
 <template>
     <div id="round-leaderboard" class="round-leadeboard-body">
-        <h1>Round Leaderboards</h1>
-        <label for="round_names">Rounds:</label>
-        <select name="round_names" id="round_names" v-model="selectedRoundName"></select>
+        <div>
+            <div style="display: inline-block">
+            <h4 class="page-title" style="color:white;">Round Leaderboard</h4></div>
+            <!--<label for="round_names" class="select-label">Round:</label>-->
+            <div style="display: inline-block">
+            <select name="round_names" id="round_names" class="select-box" v-model="selectedRoundName"></select></div>
+        </div>
+        <hr>
         <table id="results_table">
             <thead>
-                <tr>
-                    <th>Position</th>
-                    <th>Email</th>
-                    <th>Points</th>
-                    <th>Time</th>
-                </tr>
+            <tr>
+                <th>Position</th>
+                <th>Email</th>
+                <th>Points</th>
+                <th>Time</th>
+            </tr>
             </thead>
         </table>
     </div>
@@ -18,6 +23,7 @@
 
 <script>
     import $ from 'jquery'
+
     export default {
         name: 'round-leaderboard',
         data() {
@@ -105,12 +111,35 @@
     .round-leadeboard-body {
         position: fixed;
         overflow: auto;
-        top: 10%;
-        left: 11%;
-        width: 50%;
+        width: 40%;
+        left: 30%;
+        top: 20%;
         border: 1px solid grey;
-        background-color: white;
         margin: 5% auto auto;
         padding: 20px;
+        color: white;
+        background: rgba(65, 107, 44, 1);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .select-label {
+        font-size: large;
+    }
+
+    .select-box {
+        font-size: large;
+        width: 35%;
+        position: absolute;
+        top: 5%;
+        right: 10%;
+    }
+
+    #results_table {
+        font-size: 1rem;
+        width: 100%;
+    }
+
+    #results_table th td {
+        font-size: 10px;
     }
 </style>
