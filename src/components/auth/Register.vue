@@ -1,9 +1,10 @@
 <template>
+    <!-- <center> -->
     <div id="register">
+
         <form id="reg"
               @submit.prevent="validateForm">
-
-            <h3 class="page-title">Register</h3>
+            <h3 class="page-title" style="color:white;">Register</h3>
             <hr>
             <div class="form-group">
 
@@ -30,6 +31,7 @@
             </div>
         </form>
     </div>
+    <!-- </center> -->
 </template>
 
 <script>
@@ -149,31 +151,45 @@
                 })
                     .then(() => {
                         this.$router.push({name: 'login'})
+                        document.title = "Register - Snail-X";
                     })
             }
+        },
+        beforeMount() {
+            document.title = "Register - Snail-X";
         }
     }
 </script>
 
-<style scoped>
+<style>
     #register {
         position: fixed;
         overflow: auto;
-        top: 10%;
-        left: 11%;
-        width: 50%;
+        width: 40%;
+        left: 30%;
+        top: 20%;
         border: 1px solid grey;
-        background-color: white;
         margin: 5% auto auto;
         padding: 20px;
+        color: white;
+        background: rgba(65, 107, 44, 1);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
 
     input {
         margin-right: 1em;
+        color:white;
     }
 
     .validation-alert {
-        color: red;
+        color:white;
         font-size: medium;
+    }
+    .btn-warning {
+        float: right;
+        margin-right: 10px;
+    }
+    .btn-primary {
+        float: right;
     }
 </style>

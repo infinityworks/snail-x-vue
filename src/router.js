@@ -14,14 +14,18 @@ export default new Router({
         {
             path: '/',
             name: "home",
-            component: HomeComponent
+            component: HomeComponent,
+            meta: {
+                title: 'Home Page'
+            }
         },
         {
             path: '/login',
             name: "login",
             component: LoginComponent,
             meta: {
-                requiresVisitor: true
+                requiresVisitor: true,
+                title: 'Login'
             }
         },
         {
@@ -29,7 +33,8 @@ export default new Router({
             name: "register",
             component: RegisterComponent,
             meta: {
-                requiresVisitor: true
+                requiresVisitor: true,
+                title: 'Register'
             }
         },
         {
@@ -42,7 +47,8 @@ export default new Router({
             name: "make-predictions",
             component: MakePredictionsComponent,
             meta: {
-                requiresAuth: true
+                requiresAuth: true,
+                title: 'Make Prediction'
             }
         },
         {

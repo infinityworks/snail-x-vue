@@ -1,6 +1,6 @@
 <template>
     <div id="make-predictions">
-        <h2 class="page-title">Make Predictions Here!</h2>
+        <h2 style="color:white" class="page-title">Make Predictions Here!</h2>
         <h3 class="round-name">{{ round_name }}</h3>
         <hr>
         <form @submit.prevent=submitForm()>
@@ -79,9 +79,13 @@
                     })
                         .then(() => {
                             this.$router.push({name: 'home'})
+                            document.title = "Make Prediction - Snail-X";
                         })
                 }
             }
+        },
+        beforeMount() {
+            document.title = "Make Prediction - Snail-X";
         }
     }
 </script>
@@ -92,10 +96,11 @@
         /*left: 24.5%;*/
         /*top: 15%;*/
         width: 50%;
-        border: 1px solid grey;
-        background-color: white;
+        background: rgba(65, 107, 44, 1);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         margin: 5% auto auto;
         padding: 20px;
+        color:white;
     }
 
     input {
