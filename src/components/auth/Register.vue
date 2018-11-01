@@ -163,7 +163,7 @@
 
 <style>
     #register {
-        position: absolute;
+        position: fixed;
         overflow: auto;
         width: 40%;
         left: 30%;
