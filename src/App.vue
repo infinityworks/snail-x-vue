@@ -14,7 +14,8 @@
                     <router-link to="/" class="nav-link">Home</router-link>
                 </li>
                 <li>
-                    <router-link to="/make-prediction" class="nav-link">Enter</router-link>
+                    <router-link to="/make-predictions" class="nav-link">Enter</router-link>
+
                 </li>
                 <li>
                     <router-link to="/" class="nav-link">Results</router-link>
@@ -29,8 +30,10 @@
                     <router-link :to="{ name: 'register' }" class="nav-link">Register</router-link>
                 </li>
                 <li v-if="loggedIn">
-                    <p style="color: orange; display: inline-block;">Welcome, {{ userFirstName }}</p>
-                    <router-link style="display: inline-block;" :to="{ name: 'logout' }" class="nav-link">Logout</router-link>
+                    <router-link to="/" class="nav-link">Welcome, {{ userFirstName }}</router-link>
+                </li>
+                <li v-if="loggedIn">
+                <router-link :to="{ name: 'logout' }" class="nav-link">Logout</router-link>
                 </li>
             </ul>
         </div>
@@ -98,7 +101,7 @@
     .nav a {
         color: white;
         padding: 0 24px;
-        font-size: 16px;
+        font-size: 13.5px;
         font-weight: 800;
         letter-spacing: .05rem;
         text-decoration: none;
@@ -108,7 +111,7 @@
     .nav p {
         color: #636b6f;
         padding: 0 20px;
-        font-size: 12px;
+        font-size: 13.5px;
         font-weight: 800;
         letter-spacing: .05rem;
         text-decoration: none;
@@ -117,7 +120,7 @@
 
 
     .nav a:hover {
-        color: green;
+        color: #7208c9;
     }
 
     .btn {
@@ -135,7 +138,6 @@
 
     .navigation-bar {
         border: 1px grey solid;
-        padding-left: 1em;
         margin: auto;
         width: 100%;
         display: flex;

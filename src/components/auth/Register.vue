@@ -4,7 +4,6 @@
 
         <form id="reg"
               @submit.prevent="validateForm">
-
             <h3 class="page-title" style="color:white;">Register</h3>
             <hr>
             <div class="form-group">
@@ -152,6 +151,7 @@
                 })
                     .then(() => {
                         this.$router.push({name: 'login'})
+                        document.title = "Register - Snail-X";
                     })
             }
         },
