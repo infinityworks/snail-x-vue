@@ -1,9 +1,15 @@
 <template>
+    <center>
     <div id="register">
+
         <form id="reg"
               @submit.prevent="validateForm">
 
+<<<<<<< HEAD
             <h3 style="color:white;" class="page-title">Register</h3>
+=======
+            <h3 class="page-title" style="color:white;">Register</h3>
+>>>>>>> ff0bf7b67edef0339551c4a78fff923d8fec0dda
             <hr>
             <div class="form-group">
 
@@ -30,6 +36,7 @@
             </div>
         </form>
     </div>
+    </center>
 </template>
 
 <script>
@@ -152,6 +159,9 @@
                         document.title = "Register - Snail-X";
                     })
             }
+        },
+        beforeMount() {
+            document.title = "Register - Snail-X";
         }
     }
 </script>
