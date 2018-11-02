@@ -47,11 +47,9 @@
             },
             getFutureRound() {  // returns 1 if a round exists that has a start datetime later than now, and 0 if no (relies on
                 // there never being future rounds if a preceding round is not closed)
-                alert("getFutureRound");
                 return this.$store.dispatch('checkFutureRound')
             },
             buildFutureRoundMessage(response_data) {
-                alert("buildFutureRoundMessage");
                 var update_text = "Next round opens in ";
                 var days = response_data["days"];
                 if (days === 1) {
@@ -78,7 +76,6 @@
             },
 
             async buildPredictionsMessage() {
-                alert("buildPredictionsMessage");
                 const is_inflight = await this.getInflightRound();
                 const inflight_status = is_inflight.data['inflight'];
                 if (inflight_status) { // logged in, check if round in flight
@@ -132,7 +129,6 @@
 
             getPredictions() {  // Returns a response with 'No Open Round' if a round is not open, and details of an open round plus predictions
                 // if there is an open round
-                alert("getPredictions");
                 return this.$store.dispatch('getPredictions')
                     .then((response) => {
                         return response
@@ -141,7 +137,6 @@
 
             getInflightPredictions(roundID) {  // Returns a response with 'No Open Round' if a round is not open, and details of an open round plus predictions
                 // if there is an open round
-                alert("getInflightPredictions");
                 return this.$store.dispatch('getInflightPredictions', {
                     roundID: roundID
                 })
@@ -150,7 +145,6 @@
                     })
             },
             getClosedPredictions(roundID) {
-                alert("getClosedPredictions");
                 return this.$store.dispatch('getClosedPredictions', {
                     roundID: roundID
                 })
@@ -159,7 +153,6 @@
                     })
             },
             async setupLoggedOut() {
-                alert("setupLoggedOut");
                 const response = await this.getActiveRound();
                 const round_open = response.data['open'];
                 let printed_table = "";
@@ -179,7 +172,6 @@
                             this.getClosedRoundResults(is_closed)
                         }
                         else {
-                            alert("no rounds in DB");
                             printed_table += "<center><h3>No rounds have been scheduled. <a href='/#/login'>Log in</a>/<a href='/#/register'>register</a> to play!</h3></center>"
                         }
                     }
@@ -189,20 +181,16 @@
             },
 
             getActiveRound() { //  Returns data where ['open'] is True if an open round exists and False if not
-                alert("getActiveRound");
                 return this.$store.dispatch('getActiveRound')
             },
 
             getInflightRound() {
-                alert("getInflightRound");
                 return this.$store.dispatch('getInflightRound')
             },
             getAllRoundsClosed() {
-                alert("getAllRoundsClosed");
                 return this.$store.dispatch('getAllRoundsClosed')
             },
             displayPredictionsAndResults(roundID) {
-                alert("displayPredictionsAndResults");
                 this.$store.dispatch('getPredictionsAndResults', {
                     roundID: roundID
                 })
@@ -222,7 +210,6 @@
                     })
             },
             getCurrentRoundResults() {
-                alert("getCurrentRoundResults");
                 this.$store.dispatch('getCurrentRoundResults')
                     .then((response) => {
                         let printed_table = "";
@@ -247,7 +234,6 @@
                     })
             },
             getClosedRoundResults(roundID) {
-                alert("getClosedRoundResults");
                 this.$store.dispatch('getClosedRoundResults')
                     .then((response) => {
                         const round_text = "Results: Round " + roundID;
