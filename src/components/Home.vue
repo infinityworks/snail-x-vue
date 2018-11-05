@@ -1,13 +1,13 @@
 <template>
-        <center>
+    <center>
         <div id="home" class="home-body">
-        <h1 id="home-message"></h1>
-        <div v-if="loggedIn" id="predictions-banner"></div>
-        <div id="message-and-image"></div>
-        <div v-if="loggedIn" id="predictions"></div>
+            <h1 id="home-message"></h1>
+            <div v-if="loggedIn" id="predictions-banner"></div>
+            <div id="message-and-image"></div>
+            <div v-if="loggedIn" id="predictions"></div>
             <div v-if="loggedIn" id="currentRoundResults"></div>
         </div>
-                </center>
+    </center>
 </template>
 
 <script>
@@ -47,9 +47,11 @@
             },
             getFutureRound() {  // returns 1 if a round exists that has a start datetime later than now, and 0 if no (relies on
                 // there never being future rounds if a preceding round is not closed)
+                alert("getFutureRound");
                 return this.$store.dispatch('checkFutureRound')
             },
             buildFutureRoundMessage(response_data) {
+                alert("buildFutureRoundMessage");
                 var update_text = "Next round opens in ";
                 var days = response_data["days"];
                 if (days === 1) {
@@ -76,6 +78,7 @@
             },
 
             async buildPredictionsMessage() {
+                alert("buildPredictionsMessage");
                 const is_inflight = await this.getInflightRound();
                 const inflight_status = is_inflight.data['inflight'];
                 if (inflight_status) { // logged in, check if round in flight
@@ -97,7 +100,7 @@
                             this.displayPredictionsAndResults(all_closed_status.data)
                         }
                         else {
-                           this.getClosedRoundResults(all_closed_status.data)
+                            this.getClosedRoundResults(all_closed_status.data)
                         }
 
                     }
@@ -106,6 +109,7 @@
                         if (response.data[0] !== "No Open Round") {
                             if (response.data.message !== "Error. No predictions made") {   // User has made predictions on a currently open round
                                 document.getElementById('predictions-banner').innerHTML = "Your predictions for round " + response.data[0][4] + ":";
+
                                 var printed_table = '<table><tr><th>Race No.</th><th>Snail Name</th><th>Trainer</th></tr>';
 
                                 for (var y = 0; y < response.data.length; y++) {
@@ -128,6 +132,7 @@
 
             getPredictions() {  // Returns a response with 'No Open Round' if a round is not open, and details of an open round plus predictions
                 // if there is an open round
+                alert("getPredictions");
                 return this.$store.dispatch('getPredictions')
                     .then((response) => {
                         return response
@@ -136,6 +141,7 @@
 
             getInflightPredictions(roundID) {  // Returns a response with 'No Open Round' if a round is not open, and details of an open round plus predictions
                 // if there is an open round
+                alert("getInflightPredictions");
                 return this.$store.dispatch('getInflightPredictions', {
                     roundID: roundID
                 })
@@ -144,6 +150,7 @@
                     })
             },
             getClosedPredictions(roundID) {
+                alert("getClosedPredictions");
                 return this.$store.dispatch('getClosedPredictions', {
                     roundID: roundID
                 })
@@ -152,6 +159,7 @@
                     })
             },
             async setupLoggedOut() {
+                alert("setupLoggedOut");
                 const response = await this.getActiveRound();
                 const round_open = response.data['open'];
                 let printed_table = "";
@@ -181,16 +189,20 @@
             },
 
             getActiveRound() { //  Returns data where ['open'] is True if an open round exists and False if not
+                alert("getActiveRound");
                 return this.$store.dispatch('getActiveRound')
             },
 
             getInflightRound() {
+                alert("getInflightRound");
                 return this.$store.dispatch('getInflightRound')
             },
             getAllRoundsClosed() {
+                alert("getAllRoundsClosed");
                 return this.$store.dispatch('getAllRoundsClosed')
             },
             displayPredictionsAndResults(roundID) {
+                alert("displayPredictionsAndResults");
                 this.$store.dispatch('getPredictionsAndResults', {
                     roundID: roundID
                 })
@@ -210,6 +222,7 @@
                     })
             },
             getCurrentRoundResults() {
+                alert("getCurrentRoundResults");
                 this.$store.dispatch('getCurrentRoundResults')
                     .then((response) => {
                         let printed_table = "";
@@ -221,19 +234,20 @@
                             for (var y = 0; y < response.data.length; y++) {
                                 printed_table += '<tr><td>' + (y + 1) + '</td><td>' + response.data[y][2] + '</td><td>' + response.data[y][3] + '</td></tr>';
 
-                                }
-                                printed_table += '</table>';
                             }
-                            else {
+                            printed_table += '</table>';
+                        }
+                        else {
                             // var printed_table = "<h3>No results currently available</h3>"
 
                             printed_table += "<h3> </h3>";
-                            }
+                        }
 
-                            document.getElementById('currentRoundResults').innerHTML = printed_table;
-                        })
+                        document.getElementById('currentRoundResults').innerHTML = printed_table;
+                    })
             },
             getClosedRoundResults(roundID) {
+                alert("getClosedRoundResults");
                 this.$store.dispatch('getClosedRoundResults')
                     .then((response) => {
                         const round_text = "Results: Round " + roundID;
@@ -257,54 +271,56 @@
     /*--- future rounds message styling ---*/
 
     #home-message {
-            width: 100%;
-            text-align: center;
-            background: rgba(65, 107, 44, 1);
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            color:white;
+        width: 100%;
+        text-align: center;
+        background: rgba(65, 107, 44, 1);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        color: white;
     }
 
     /*--- prediction banner styling ---*/
 
     #predictions-banner {
         width: 100%;
-            text-align: center;
-            background: rgba(65, 107, 44, 1);
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            color:white;
-
+        text-align: center;
+        background: rgba(65, 107, 44, 1);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        color: white;
     }
 
     #currentRoundResults {
-        width: 100%;
-            text-align: center;
-            background: rgba(65, 107, 44, 1);
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            color:white;
+        background: rgba(65, 107, 44, 1);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        color: white;
+        margin-bottom: 10px;
+        padding-bottom: 20px;
     }
+
     #message-and-image {
-         background: rgba(65, 107, 44, 1);
-         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-         color:white;
+        background: rgba(65, 107, 44, 1);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        color: white;
+        margin-bottom: 10px;
+        padding-bottom: 20px;
     }
+
     /*--- prediction banner styling end ---*/
 
     /*--- User predictions table styling ---*/
 
-
     table {
-            width:10%;
-            background: rgba(65, 107, 44, 1);
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        width: 10%;
+        background: rgba(65, 107, 44, 1);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
     }
 
     table, th, td {
         border: 1px solid black;
         border-collapse: collapse;
-            color: black;
-            background-color:white;
-            width:10%;
+        color: black;
+        background-color: white;
+        width: 10%;
     }
 
     th, td {
