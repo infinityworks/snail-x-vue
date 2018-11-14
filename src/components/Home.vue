@@ -197,6 +197,7 @@
                     .then((response) => {
                         let printed_table = '<h3>Current Round Results</h3><table><tr><th>Race No.</th><th>Predicted Snail</th><th>Finishing Position</th><th>Winning Snail</th><th>Winning Snail Trainer</th> </tr>';
                         for (let x = 0; x < response.data.length; x++) {
+                            console.log(response.data);
                             if (response.data[x]['actualWinner']) {
                                 printed_table += '<tr><td>' + (x + 1) + '</td><td>' + response.data[x]['predictedName'] + '</td><td>' + response.data[x]['position'] + '</td><td>' + response.data[x]['actualWinner'] + '</td><td>' + response.data[x]['winnerTrainer'] + '</td></tr>';
                             }

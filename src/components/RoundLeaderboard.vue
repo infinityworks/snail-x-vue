@@ -22,7 +22,6 @@
 </template>
 
 <script>
-    import $ from 'jquery'
 
     export default {
         name: 'round-leaderboard',
@@ -61,7 +60,8 @@
             },
             populateLeaderboardTable(leaderboardResults) {
                 let table = document.getElementById('results_table');
-                $("#results_table tbody").remove();
+                let row = document.getElementsByTagName('tbody')[0];
+                row.parentNode.removeChild(row);
                 let tbody = document.createElement('tbody');
                 for (let i = 0; i < leaderboardResults.length; i++) {
                     let tr = document.createElement('TR');
