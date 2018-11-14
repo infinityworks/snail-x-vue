@@ -13,15 +13,8 @@
                 <li>
                     <router-link to="/" class="nav-link">Home</router-link>
                 </li>
-                <li v-if="loggedIn">
-                    <router-link to="/make-predictions" class="nav-link">Enter</router-link>
-
-                </li>
                 <li>
-                    <router-link :to="{ name: 'round-leaderboard' }" class="nav-link">Results</router-link>
-                </li>
-                <li>
-                    <router-link to="/" class="nav-link">Leaderboards</router-link>
+                    <router-link :to="{ name: 'round-leaderboard' }" class="nav-link">Leaderboards</router-link>
                 </li>
                 <li v-if="!loggedIn">
                     <router-link :to="{ name: 'login' }" class="nav-link">Login</router-link>

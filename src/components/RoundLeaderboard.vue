@@ -22,6 +22,7 @@
 </template>
 
 <script>
+    import $ from 'jquery'
 
     export default {
         name: 'round-leaderboard',
@@ -60,10 +61,10 @@
             },
             populateLeaderboardTable(leaderboardResults) {
                 let table = document.getElementById('results_table');
-                let row = document.getElementsByTagName('tbody')[0];
-                row.parentNode.removeChild(row);
+                $("#results_table tbody").remove();
                 let tbody = document.createElement('tbody');
                 for (let i = 0; i < leaderboardResults.length; i++) {
+                    console.log(leaderboardResults.length)
                     let tr = document.createElement('TR');
                     for (let j = 0; j < leaderboardResults[i].length; j++) {
                         let td = document.createElement('TD');
@@ -82,6 +83,7 @@
             getLeaderboardByRoundName(roundName) {
                 return this.$store.dispatch('getRoundLeaderboardByRoundName', roundName)
                     .then(response_data => {
+                        console.log(response_data);
                         return response_data;
                     })
                     .catch(error => {
