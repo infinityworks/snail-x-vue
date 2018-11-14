@@ -4,13 +4,13 @@
             <div style="display: inline-block">
                 <h4 class="page-title" style="color:white;">Round Leaderboard</h4></div>
             <!--<label for="round_names" class="select-label">Round:</label>-->
-            <div v-if="getAllRoundsClosed()">
+            <div v-if="roundClosed">
             <div style="display: inline-block">
                 <select name="round_names" id="round_names" class="select-box" v-model="selectedRoundName"></select>
             </div>
             </div>
         </div>
-        <div v-if="getAllRoundsClosed()">
+        <div v-if="roundClosed">
         <hr>
         <table id="results_table">
             <thead>
@@ -40,9 +40,9 @@
                 roundClosed: false
             }
         },
-
         created() {
             this.roundClosed = this.getAllRoundsClosed();
+            console.log(this.roundClosed);
             this.initLeaderboardView()
         },
         watch: {
