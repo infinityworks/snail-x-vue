@@ -37,11 +37,12 @@
         data() {
             return {
                 selectedRoundName: "",
-                roundClosed: this.getAllRoundsClosed()
+                roundClosed: false
             }
         },
 
         created() {
+            this.roundClosed = this.getAllRoundsClosed()
             this.initLeaderboardView()
         },
         watch: {
@@ -50,7 +51,7 @@
             }
         },
         methods: {
-            getAllRoundsClosed() {
+            async getAllRoundsClosed() {
                 return this.$store.dispatch('getAllRoundsClosed')
             },
             async initLeaderboardView() {

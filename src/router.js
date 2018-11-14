@@ -54,7 +54,11 @@ export default new Router({
         {
             path: "/round-leaderboard",
             name: "round-leaderboard",
-            component: RoundLeaderboardComponent
+            component: RoundLeaderboardComponent,
+            meta: {
+                requiresAuth: true,
+                title: 'Leaderboard'
+            }
         }
     ]
 })
