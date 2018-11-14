@@ -1,12 +1,16 @@
 <template>
-    <div id="round-leaderboard" class="round-leadeboard-body">
+    <div id="round-leaderboard" class="round-leaderboard-body">
         <div>
             <div style="display: inline-block">
-            <h4 class="page-title" style="color:white;">Round Leaderboard</h4></div>
+                <h4 class="page-title" style="color:white;">Round Leaderboard</h4></div>
             <!--<label for="round_names" class="select-label">Round:</label>-->
+            <div v-if="roundClosed">
             <div style="display: inline-block">
-            <select name="round_names" id="round_names" class="select-box" v-model="selectedRoundName"></select></div>
+                <select name="round_names" id="round_names" class="select-box" v-model="selectedRoundName"></select>
+            </div>
+            </div>
         </div>
+        <div v-if="roundClosed">
         <hr>
         <table id="results_table">
             <thead>
@@ -18,6 +22,10 @@
             </tr>
             </thead>
         </table>
+        </div>
+        <div v-else>
+            <p>There are no closed rounds for which to view a leaderboard</p>
+        </div>
     </div>
 </template>
 
@@ -28,11 +36,13 @@
         name: 'round-leaderboard',
         data() {
             return {
-                selectedRoundName: ""
+                selectedRoundName: "",
+                roundClosed: this.getAllRoundsClosed()
             }
         },
+
         created() {
-            this.initLeaderboardView();
+            this.initLeaderboardView()
         },
         watch: {
             selectedRoundName: function (val) {
@@ -40,6 +50,9 @@
             }
         },
         methods: {
+            getAllRoundsClosed() {
+                return this.$store.dispatch('getAllRoundsClosed')
+            },
             async initLeaderboardView() {
                 await this.populateSelectBoxWithRoundIds();
                 this.loadDefaultLeaderboard();
@@ -110,7 +123,7 @@
 </script>
 
 <style scoped>
-    .round-leadeboard-body {
+    .round-leaderboard-body {
         position: fixed;
         overflow: auto;
         width: 40%;
