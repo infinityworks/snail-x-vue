@@ -80,7 +80,7 @@ export const store = new Vuex.Store({
 
         registerUser(context, credentials) {
             return new Promise((resolve, reject) => {
-                axios.post('https://localhost:5000/register-user', {
+                axios.post('https://snail-x-core.herokuapp.com/register-user', {
                     firstName: credentials.firstName,
                     lastName: credentials.lastName,
                     email: credentials.email,
