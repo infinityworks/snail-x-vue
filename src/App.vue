@@ -32,7 +32,7 @@
         </div>
         <div id="sidebanner"></div>
         <router-view @authenticated="setAuthenticated"/>
-        <center><img style="width:80%; padding-top:60%;" src="./components/assets/godaddy-ad.jpg"/></center>
+        <center><img style="width:80%; padding-top:20%;" src="./components/assets/godaddy-ad.jpg"/></center>
     </div>
 
 </template>
@@ -162,5 +162,16 @@
         padding: 0;
         margin-top: 0;
 
+    }
+
+    @media only screen and (max-width: 1037px) {
+    #app {
+        width:100%;
+        max-width: 100%;
+        }
+
+    #snail-img {
+        width: 70%;
+        }
     }
 </style>

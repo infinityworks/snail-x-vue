@@ -53,15 +53,15 @@
 
 <style scoped>
     #login {
-        position: fixed;
         left: 30%;
         top: 8%;
-        width: 40%;
+        width: 60%;
         border: 1px solid grey;
         background: rgba(65, 107, 44, 1);
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        margin: 200px auto auto;
+        margin: 100px auto auto;
         padding: 20px;
+        overflow: hidden;
     }
 
     input {

@@ -166,9 +166,8 @@
 
 <style>
     #register {
-        position: fixed;
         overflow: auto;
-        width: 40%;
+        width: 60%;
         left: 30%;
         top: 20%;
         border: 1px solid grey;
