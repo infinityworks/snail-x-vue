@@ -4,16 +4,16 @@
         <h3 class="round-name">{{ round_name }}</h3>
         <hr>
         <form @submit.prevent=submitForm()>
-            <div v-for="(race, index) in races" class="race" style="margin-bottom: 2rem">
+            <div class="race" v-for="(race, index) in races" class="race" style="margin-bottom: 2rem">
                 <h4 class="race-number">Race {{ index+1 }}</h4>
-                <div v-for="snail in race.race_data" style="overflow:hidden">
+                <div class="player" v-for="snail in race.race_data" style="overflow:hidden">
                     <div style="float:left">
                         <div>
-                            <div>Snail: {{ snail.snail_name}}</div>
-                            <div>Trainer: {{ snail.trainer_name}}</div>
+                            <p style="margin-bottom: 0"><b>Snail:</b> {{ snail.snail_name}}</p>
+                            <p style="margin-bottom: 0"><b>Trainer:</b> {{ snail.trainer_name}}</p>
                         </div>
                     </div>
-                    <div>
+                    <div style="float:right">
                         <input
                                 class="radio"
                                 type="radio"
@@ -24,7 +24,6 @@
                         >
                     </div>
                 </div>
-                <hr>
             </div>
 
             <button type="button" class="btn btn-warning" onclick="window.history.back()">Back</button>
@@ -96,12 +95,14 @@
         /*position: fixed;*/
         /*left: 24.5%;*/
         /*top: 15%;*/
-        width: 50%;
+        width: 90%;
         background: rgba(65, 107, 44, 1);
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         margin: 5% auto auto;
         padding: 20px;
         color:white;
+        display:block;
+        overflow: auto;
     }
 
     input {
@@ -111,5 +112,16 @@
     input.radio {
         float: right;
         margin-top: 1em;
+    }
+
+    .player {
+        border: 1px solid #3e632b;
+        margin-bottom: 5px;
+        padding: 10px;
+    }
+
+    .race {
+        background-color: #528638;
+        padding: 10px;
     }
 </style>
